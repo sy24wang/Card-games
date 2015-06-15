@@ -85,7 +85,7 @@ void startgame()
 	string a3;
 	string thirdcardchoice;
         
-
+	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p1 << endl;
 	if (cheat)
         {
@@ -111,7 +111,7 @@ void startgame()
         int aidecisionscore = finalscore(aivalue);
         int playerdecisionscore = finalscore(playervalue);
 
-        if (aidecisionscore <= playerdecisionscore)
+        if ((aidecisionscore <= playerdecisionscore) && (aidecisionscore < 6))   //seems to be a bad idea for ai, if ai's score is already bigger or equal to 6 
         {
 		cout << "Computer has decided to draw the 3rd card!" << endl;
                 a3 = randomcard();
@@ -139,10 +139,8 @@ void startgame()
 
         cout << "player score = " << playerscore << endl;
 
-        if (cheat)
-	{
-		cout << "ai score = " << aiscore << endl;
-	}
+	cout << "ai score = " << aiscore << endl;
+	
 
 	if(playerscore == aiscore)
 	{
@@ -170,13 +168,22 @@ void startgame()
 int main()
 {
 	int menuselection;
-	cout << strtoint("J") << endl;
-	cout << strtoint("Q") << endl;
-	cout << strtoint("K") << endl;
+	int cheatmodeselection;
 
 	cout << "Welcome to Bacarrat! Press 1 for rule, press 2 to start playing" << endl;
 	cin >> menuselection;
 
+	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
+	cin >> cheatmodeselection;
+
+	if (cheatmodeselection == 999)
+	{
+		cheat = true;
+	}
+	else if (cheatmodeselection != 999)
+	{
+		cheat = false;
+	}
 	if (menuselection == 1)
 	{
 		printrule();
