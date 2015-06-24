@@ -1,0 +1,17 @@
+A Game will have 2 player, computer(A.I.) and human player
+
+Rule are as follows:
+
+Card values:
+
+J = 10
+Q = 10
+K = 10
+A = 11 or 1
+all other cards are of their own face value
+
+if hit 21, game ends immediately
+
+otherwise, A.I. may catch up with player
+
+if score > 21 then lose
