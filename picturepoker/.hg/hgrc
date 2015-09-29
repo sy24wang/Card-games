@@ -1,0 +1,7 @@
+[ui]
+username = sy24wang@uwaterloo.ca
+[extensions]
+hgext.mq =
+[defaults]
+log = -r :
+

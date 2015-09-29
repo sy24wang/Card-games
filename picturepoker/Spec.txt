@@ -1,0 +1,53 @@
+Highest->lowest rewarding scheme:
+
+5 of a kind: X16
+4 of a kind: X8
+Full House: X6
+3 of a kind: X4
+2 pairs: X3
+1 pair: X2
+
+
+
+A hand contains 5 cards
+
+A card contains:
+
+A string, stating what's the face value
+A value between 1 ~ 6, stating its order
+
+Warning: in early dev. will name string as "1", "2", "3", "4", "5", "6", DO NOT simply convert string -> integer
+(string will be changed later to Star, Mario, Luigi...)
+
+Star > Mario > Luigi > Flower > Mushroom > Cloud, there's 5 cards of each, so 30 cards in total
+
+
+A game contains 2 hand, player's hand and A.I.'s hand
+
+A player can bet up to max. 5 coins (might want to override this)
+
+A player may quit the game at anytime by typing "q" or "quit". When this happens game.cc shall produce "lastgame.sav" to the current directory
+
+
+A .savegame file contains:
+
+Player's name
+# of coins the player has left
+
+
+In event of a tie:
+
+5 of a kind: check the picture
+4 of a kind: check the picture
+Full House: check the picture WITH THE 3 same (format will be in AAABB, only care about the AAA (impossible for AAA to be tied)) 
+3 of a kind: check the picture
+2 pairs: check the picture WITH THE HIGHEST ORDER, check the picture WITH THE SECOND HIGHEST ORDER if highest order is tied. If both 2-2 are tie, then it's a tie
+1 pair: check the picture
+
+
+
+
+undecided:
+
+what data structure will Hand use (array? vector? linked list?)
+need to write the special version of sorting

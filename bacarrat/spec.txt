@@ -1,0 +1,17 @@
+Play with a standard 52-card deck
+
+All cards are of its own value(i.e. '2' = 2 points, '3' = 3 points)
+J = 11, Q = 12, K = 13
+
+Player and A.I. will both draw 2 cards
+
+The final score is the score of your hand (2 cards) mod 10.
+For example, if your hand is KK then it's (13 + 13) % 10 = 6
+if your hand is AJ then it's (1 + 11) % 10 = 2
+if your hand is 34 then it's (3 + 4) % 10 = 7
+
+You may choose to draw a 3rd card after drawing those 2 cards.
+
+The A.I. may also choose to draw the 3rd card
+
+Whoever have their final score closest to 9 wins the game

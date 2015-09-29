@@ -1,0 +1,2 @@
+comparator is done without caring about inside ordering (Mario > Luigi stuff)
+
