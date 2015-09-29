@@ -14,4 +14,21 @@ if hit 21, game ends immediately
 
 otherwise, A.I. may catch up with player
 
-if score > 21 then lose
+
+
+player wins when:
+
+1 - Player's score == 21  (game ends immediately)
+2 - AI's did not manage to catch up (AI score < Player score)
+3 - AI's score > 21
+
+player loses when:
+
+1 - Player's score > 21
+2 - AI managed to catch up with player (AI score == Player score)
+
+
+others:
+
+split (2 of the same card, ex. 4,4 or J, J)
+double wager
