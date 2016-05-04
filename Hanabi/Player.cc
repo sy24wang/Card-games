@@ -4,6 +4,7 @@
 #include <time.h>
 #include "Player.h"
 #include "Card.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -27,7 +28,7 @@ void Player::init()
 int Player::CardGen()
 {
 	const bool DEBUG = false;
-	
+
 	int card = randInt(1, 20);
 	if (DEBUG)
 	{
@@ -45,23 +46,42 @@ int Player::CardGen()
 	return card;
 }
 
+
+void Player::Sorthand(vector<Card> *hand)
+{
+	std::sort (hand->begin(), hand->end(), comparison());
+	cout << "AFTER SORT:" << endl;
+	for (vector <Card> :: iterator i = hand->begin(); i != hand->end(); i++)
+	{
+		cout << *i << endl;
+	}
+}
+
 Player::Player()
 {
+
 	int card;
 	card = CardGen();
 	c1 = new Card(card);
+	playerHand.push_back(*c1);
 
 	card = CardGen();
 	c2 = new Card(card);
+	playerHand.push_back(*c2);
 
 	card = CardGen();
 	c3 = new Card(card);
+	playerHand.push_back(*c3);
 
 	card = CardGen();
 	c4 = new Card(card);
+	playerHand.push_back(*c4);
 
 	card = CardGen();
 	c5 = new Card(card);
+	playerHand.push_back(*c5);
+
+	Sorthand(&playerHand);
 }
 
 ostream &operator<<(ostream &out, const Player &other)

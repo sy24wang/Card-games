@@ -5,13 +5,17 @@
 #include <vector>
 class Card
 {
-	std::string pattern;
+	int pattern;
 	int cardValue;
+	
+
 
 friend std::ostream &operator<<(std::ostream &out, const Card &c);
 
 public:
 	Card(int card);
+	int numericalAlias;
+	
 
 };
 
