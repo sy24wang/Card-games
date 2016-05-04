@@ -8,5 +8,6 @@ class Information
 	public:
 
 	void replenish();
+	void giveinfo();
 	Information(int tokens);
 };	

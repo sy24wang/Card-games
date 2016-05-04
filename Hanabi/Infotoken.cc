@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Infotoken.h>
+#include "Infotoken.h"
 using namespace std;
 
 
@@ -11,4 +11,9 @@ Information::Information(int tokens)
 void Information::replenish()
 {
 	this->availableinfotoken += 1;
+}
+
+void Information::giveinfo()
+{
+	this->availableinfotoken -= 1;
 }
