@@ -51,10 +51,14 @@ void Player::Sorthand(vector<Card> *hand)
 {
 	std::sort (hand->begin(), hand->end(), comparison());
 	cout << "AFTER SORT:" << endl;
+
+
 	for (vector <Card> :: iterator i = hand->begin(); i != hand->end(); i++)
 	{
-		cout << *i << endl;
+		cout << *i;
 	}
+	cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
+	
 }
 
 Player::Player()
