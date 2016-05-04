@@ -13,7 +13,7 @@ class Player
 	Card *c3 = NULL;
 	Card *c4 = NULL;
 	Card *c5 = NULL;
-
+	int CardGen();
 
 friend std::ostream &operator<<(std::ostream &out, const Player &p);
 

@@ -24,92 +24,44 @@ void Player::init()
 	}
 }
 
-Player::Player()
+int Player::CardGen()
 {
-	bool DEBUG = false;
+	const bool DEBUG = false;
+	
 	int card = randInt(1, 20);
 	if (DEBUG)
 	{
-		cout << "c1 = " << card << endl;
+		cout << "Generated card: " << card << endl;
 	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
 		if (DEBUG)
 		{
-			cout << "regen c1, new c1 = " << card << endl;
+			cout << "Card already used, generating new card: " << card << endl;
 		}
 	}
+	used[card] = 1;
+	return card;
+}
+
+Player::Player()
+{
+	int card;
+	card = CardGen();
 	c1 = new Card(card);
-	used[card] = 1;
 
-
-	card = randInt(1, 20);
-	if (DEBUG)
-	{
-		cout << "c2 = " << card << endl;
-	}
-	while(used[card] == 1)
-	{
-		card = randInt(1, 20);
-		if (DEBUG)
-		{
-			cout << "regen c2, new c2 = " << card << endl;
-		}
-	}
+	card = CardGen();
 	c2 = new Card(card);
-	used[card] = 1;
 
-
-	card = randInt(1, 20);
-	if (DEBUG)
-	{
-		cout << "c3 = " << card << endl;
-	}
-	while(used[card] == 1)
-	{
-		card = randInt(1, 20);
-		if (DEBUG)
-		{
-			cout << "regen c3, new c3 = " << card << endl;
-		}
-	}
+	card = CardGen();
 	c3 = new Card(card);
-	used[card] = 1;
 
-
-	card = randInt(1, 20);
-	if (DEBUG)
-	{
-		cout << "c4 = " << card << endl;
-	}
-	while(used[card] == 1)
-	{
-		card = randInt(1, 20);
-		if (DEBUG)
-		{
-			cout << "regen c4, new c4 = " << card << endl;
-		}
-	}
+	card = CardGen();
 	c4 = new Card(card);
-	used[card] = 1;
 
-
-	card = randInt(1, 20);
-	if (DEBUG)
-	{
-		cout << "c5 = " << card << endl;
-	}
-	while(used[card] == 1)
-	{
-		card = randInt(1, 20);
-		if (DEBUG)
-		{
-			cout << "regen c5, new c5 = " << card << endl;
-		}
-	}
+	card = CardGen();
 	c5 = new Card(card);
-	used[card] = 1;
 }
 
 ostream &operator<<(ostream &out, const Player &other)
