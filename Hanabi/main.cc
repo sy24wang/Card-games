@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Card.h"
+#include "Player.h"
 #include "Infotoken.h"
 
 using namespace std;
@@ -7,11 +8,16 @@ using namespace std;
 int main()
 {
 
-	Card c1;
-	Card c2;
-	Card c3;
-	Card c4;
-	
-	cout << c1 << c2 << c3 << c4;
+	Player p1;
+	p1.init();
+	cout << p1;
 
+	Player p2;
+	cout << p2;
+
+	Player p3;
+	cout << p3;
+
+	Player p4;
+	cout << p4;
 }

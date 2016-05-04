@@ -1,3 +1,6 @@
+#ifndef __INFOTOKEN_H__
+#define __INFOTOKEN_H__
+
 #include <iostream>
 
 
@@ -11,3 +14,5 @@ class Information
 	void giveinfo();
 	Information(int tokens);
 };	
+
+#endif

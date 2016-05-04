@@ -1,37 +1,38 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <stdlib.h>
-#include <time.h>
 #include "Card.h"
 
 using namespace std;
 
-int randInt(int min, int max)
+Card::Card(int card)
 {
-	srand (time(NULL));
 
-	return rand() % max + min; 
-}
-
-Card::Card()
-{
-	int pattern = randInt(1, 4);
-	int cardValue = randInt(1, 5);
-
-	switch(pattern)
+	if ((card >= 1) && (card <= 5))
 	{
-		case 1: this->pattern = "Diamond"; break;
-		case 2: this->pattern = "Club"; break;
-		case 3: this->pattern = "Heart"; break;
-		case 4: this->pattern = "Spade"; break;
-		default: this->pattern = "ERROR";
+		pattern = "Diamond";
+		cardValue = card;
 	}
-	this->cardValue = cardValue;
-
-//TO DO: cards should follow singleton pattern
-//we don't want 2X Diamond 4 appear at the same time
-
+	else if ((card >= 6) && (card <= 10))
+	{
+		pattern = "Club";
+		cardValue = card - 5;
+	}
+	else if ((card >= 11) && (card <= 15))
+	{
+		pattern = "Heart";
+		cardValue = card - 10;
+	}
+	else if ((card >= 16) && (card <= 20))
+	{
+		pattern = "Spade";
+		cardValue = card - 15;
+	}
+	else
+	{
+		pattern = "ERROR";
+		cardValue = -999;
+	}
 }
 
 ostream &operator<<(ostream &out, const Card &other)

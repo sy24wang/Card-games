@@ -5,15 +5,15 @@ using namespace std;
 
 Information::Information(int tokens)
 {
-	this->availableinfotoken = tokens;
+	availableinfotoken = tokens;
 }
 
 void Information::replenish()
 {
-	this->availableinfotoken += 1;
+	availableinfotoken += 1;
 }
 
 void Information::giveinfo()
 {
-	this->availableinfotoken -= 1;
+	availableinfotoken -= 1;
 }

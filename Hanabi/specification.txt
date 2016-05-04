@@ -1,0 +1,5 @@
+Hanabi is a co-operative game played by 4 players, each person will have 5 cards in their hands that is shown only to everyone else (i.e. I don't know what cards I have, but the other 3 people do)
+
+Each players may give clues/hints to 1 other player, but is limited by the information token. Each hint costs 1 token, and everyone loses if there are no information tokens remaining
+
+The goal of the game is to complete 4 sets of 5s. Everyone wins when that goal is accomplished 
