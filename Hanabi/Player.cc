@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int used[21];		//[0] is not used, [1]-[5]= Diamond, [6]-[10]=Club, [11]-[15]=Heart, [16]-[20]=Spade
+int *used = new int[21];		//[0] is not used, [1]-[5]= Diamond, [6]-[10]=Club, [11]-[15]=Heart, [16]-[20]=Spade
 
 
 int randInt(int min, int max)
@@ -18,7 +18,6 @@ int randInt(int min, int max)
 
 void Player::init()
 {
-
 	for (int i = 0; i < 21; i++)
 	{
 		used[i] = 0;

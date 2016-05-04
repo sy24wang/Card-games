@@ -9,7 +9,6 @@ int main()
 {
 
 	Player p1;
-	p1.init();
 	cout << p1;
 
 	Player p2;
