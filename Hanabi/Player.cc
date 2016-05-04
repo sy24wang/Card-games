@@ -26,57 +26,87 @@ void Player::init()
 
 Player::Player()
 {
-
+	bool DEBUG = false;
 	int card = randInt(1, 20);
-	cout << "c1 = " << card << endl;
+	if (DEBUG)
+	{
+		cout << "c1 = " << card << endl;
+	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
-		cout << "regen c1, new c1 = " << card << endl;
+		if (DEBUG)
+		{
+			cout << "regen c1, new c1 = " << card << endl;
+		}
 	}
 	c1 = new Card(card);
 	used[card] = 1;
 
 
 	card = randInt(1, 20);
-	cout << "c2 = " << card << endl;
+	if (DEBUG)
+	{
+		cout << "c2 = " << card << endl;
+	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
-				cout << "regen c2, new c2 = " << card << endl;
+		if (DEBUG)
+		{
+			cout << "regen c2, new c2 = " << card << endl;
+		}
 	}
 	c2 = new Card(card);
 	used[card] = 1;
 
 
 	card = randInt(1, 20);
-	cout << "c3 = " << card << endl;
+	if (DEBUG)
+	{
+		cout << "c3 = " << card << endl;
+	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
-				cout << "regen c3, new c3 = " << card << endl;
+		if (DEBUG)
+		{
+			cout << "regen c3, new c3 = " << card << endl;
+		}
 	}
 	c3 = new Card(card);
 	used[card] = 1;
 
 
 	card = randInt(1, 20);
-	cout << "c4 = " << card << endl;
+	if (DEBUG)
+	{
+		cout << "c4 = " << card << endl;
+	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
-				cout << "regen c4, new c4 = " << card << endl;
+		if (DEBUG)
+		{
+			cout << "regen c4, new c4 = " << card << endl;
+		}
 	}
 	c4 = new Card(card);
 	used[card] = 1;
 
 
 	card = randInt(1, 20);
-	cout << "c5 = " << card << endl;
+	if (DEBUG)
+	{
+		cout << "c5 = " << card << endl;
+	}
 	while(used[card] == 1)
 	{
 		card = randInt(1, 20);
-				cout << "regen c5, new c5 = " << card << endl;
+		if (DEBUG)
+		{
+			cout << "regen c5, new c5 = " << card << endl;
+		}
 	}
 	c5 = new Card(card);
 	used[card] = 1;
@@ -84,6 +114,6 @@ Player::Player()
 
 ostream &operator<<(ostream &out, const Player &other)
 {
-    out << "Player: " << *(other.c1) << *(other.c2) << *(other.c3) << *(other.c4) << *(other.c5);
+    out << *(other.c1) << *(other.c2) << *(other.c3) << *(other.c4) << *(other.c5);
     return out;
 }

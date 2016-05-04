@@ -37,6 +37,6 @@ Card::Card(int card)
 
 ostream &operator<<(ostream &out, const Card &other)
 {
-    out << "Card: " << other.pattern << " " << other.cardValue << endl;
+    out << other.pattern << " " << other.cardValue << endl;
     return out;
 }
