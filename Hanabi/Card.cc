@@ -29,6 +29,11 @@ Card::Card(int card)
 		pattern = 4;
 		cardValue = card - 15;
 	}
+	else if ((card >= 21) && (card <= 25))
+	{
+		pattern = 5;
+		cardValue = card - 20;
+	}
 	else
 	{
 		pattern = -999;
@@ -40,10 +45,11 @@ ostream &operator<<(ostream &out, const Card &other)
 {
 	switch (other.pattern)
 	{
-		case 1: out << "Diamond "; break;
-		case 2: out << "Club "; break;
-		case 3: out << "Heart "; break;
-		case 4: out << "Spade "; break;
+		case 1: out << "White "; break;
+		case 2: out << "Yellow "; break;
+		case 3: out << "Green "; break;
+		case 4: out << "Blue "; break;
+		case 5: out << "Red "; break;
 		default: out << "ERROR "; break;
 	}
     out << other.cardValue << endl;

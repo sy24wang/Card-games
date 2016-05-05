@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int *used = new int[21];		//[0] is not used, [1]-[5]= Diamond, [6]-[10]=Club, [11]-[15]=Heart, [16]-[20]=Spade
+int *used = new int[51];		//[0] is not used, [1]-[10]= Diamond, [6]-[10]=Club, [11]-[15]=Heart, [16]-[20]=Spade
 
 
 int randInt(int min, int max)
