@@ -46,21 +46,6 @@ int Player::CardGen()
 	return card;
 }
 
-
-void Player::Sorthand(vector<Card> *hand)
-{
-	std::sort (hand->begin(), hand->end(), comparison());
-	cout << "AFTER SORT:" << endl;
-
-
-	for (vector <Card> :: iterator i = hand->begin(); i != hand->end(); i++)
-	{
-		cout << *i;
-	}
-	cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
-	
-}
-
 Player::Player()
 {
 
@@ -84,8 +69,6 @@ Player::Player()
 	card = CardGen();
 	c5 = new Card(card);
 	playerHand.push_back(*c5);
-
-	Sorthand(&playerHand);
 }
 
 ostream &operator<<(ostream &out, const Player &other)
