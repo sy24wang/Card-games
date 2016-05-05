@@ -17,3 +17,9 @@ void Information::giveinfo()
 {
 	availableinfotoken -= 1;
 }
+
+int Information::howmanytoken()
+{
+	cout << "Information Tokens left: ";
+	return availableinfotoken;
+}

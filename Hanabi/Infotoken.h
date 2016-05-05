@@ -9,7 +9,7 @@ class Information
 	int availableinfotoken;
 	
 	public:
-
+	int howmanytoken();
 	void replenish();
 	void giveinfo();
 	Information(int tokens);
