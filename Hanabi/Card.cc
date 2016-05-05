@@ -6,52 +6,73 @@
 
 using namespace std;
 
+int Card::Facevalue(int card)
+{
+	int sub = card % 10;
+
+	if (sub == 0)	//10, 20, 30, 40, or 50, which are meant to be reserved for the '5' in each suits, 0 is not used
+	{
+		return 5;
+	}
+	else if ((sub == 1) || (sub == 2) || (sub == 3))		//1, 2, 3, 11, 12, 13, 21, 22, 23... are reserved for the '1's in each suits
+	{
+		return 1;
+	}
+	else if ((sub == 4) || (sub == 5))		//4, 5, 14, 15, 24, 25... are reserved for the '2's in each suits
+	{
+		return 2;
+	}
+	else if ((sub == 6) || (sub == 7))   	//6, 7, 16, 17... are reserved for the '3's in each suits
+	{
+		return 3;
+	}
+	else if ((sub == 8) || (sub == 9))		//8, 9, 18, 19... are reserved for the '4's in each suits
+	{
+		return 4;
+	}
+	else									//otherwise, something went horribly wrong
+	{
+		return -999;
+	}
+
+}
+
 Card::Card(int card)
 {
-	numericalAlias = card;
-	if ((card >= 1) && (card <= 5))
+	if ((card >= 1) && (card <= 10))
 	{
-		pattern = 1;
-		cardValue = card;
+		pattern = "White";
+		cardValue = Facevalue(card);
 	}
-	else if ((card >= 6) && (card <= 10))
+	else if ((card >= 11) && (card <= 20))
 	{
-		pattern = 2;
-		cardValue = card - 5;
+		pattern = "Yellow";
+		cardValue = Facevalue(card);
 	}
-	else if ((card >= 11) && (card <= 15))
+	else if ((card >= 21) && (card <= 30))
 	{
-		pattern = 3;
-		cardValue = card - 10;
+		pattern = "Green";
+		cardValue = Facevalue(card);
 	}
-	else if ((card >= 16) && (card <= 20))
+	else if ((card >= 31) && (card <= 40))
 	{
-		pattern = 4;
-		cardValue = card - 15;
+		pattern = "Blue";
+		cardValue = Facevalue(card);
 	}
-	else if ((card >= 21) && (card <= 25))
+	else if ((card >= 41) && (card <= 50))
 	{
-		pattern = 5;
-		cardValue = card - 20;
+		pattern = "Red";
+		cardValue = Facevalue(card);
 	}
 	else
 	{
-		pattern = -999;
+		pattern = "ERROR";
 		cardValue = -999;
 	}
 }
 
 ostream &operator<<(ostream &out, const Card &other)
 {
-	switch (other.pattern)
-	{
-		case 1: out << "White "; break;
-		case 2: out << "Yellow "; break;
-		case 3: out << "Green "; break;
-		case 4: out << "Blue "; break;
-		case 5: out << "Red "; break;
-		default: out << "ERROR "; break;
-	}
-    out << other.cardValue << endl;
+    out << other.pattern << " " << other.cardValue << endl;
     return out;
 }
