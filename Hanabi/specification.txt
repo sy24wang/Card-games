@@ -1,7 +1,16 @@
 Hanabi is a co-operative game played by 4 players, each person will have 5 cards in their hands that is shown only to everyone else (i.e. I don't know what cards I have, but the other 3 people do)
 
 
-A player may give clues/hints to 1 other player, limited by the information token. A game starts with 8, and each hint costs 1 information token
+A player may give ONE clue to another player, limited by the information token. A game starts with 8, and each clue costs 1 information token
+
+  List of possible clues: n = index 1~5, color = white/yellow/green/blue/red, x = order 1~5
+  "The card at index <n> is <color>"
+  "The cards at index <n, n, ...> is <color>"
+  "The card at index <n> is <x>"
+  "The cards at index <n, n, ...> is <x>"
+
+A player MAY NOT give the clue "The card at index <n> is playable"
+
 
 A player may discard a card during his/her turn. Discarding a card replenishes 1 information token
 
@@ -45,3 +54,31 @@ Card value tracker: Array of [51]
 [31]-[40] = Blue     => [31][32][33] = '1', [34][35] = '2', [36][37] = '3', [38][39] = '4', [40] = '5'
 
 [41]-[50] = Red      => [41][42][43] = '1', [44][45] = '2', [46][47] = '3', [48][49] = '4', [50] = '5'
+
+
+A.I.'s output should be in the format <color order playable>. Example: [red, 5, no]
+===============================================
+
+A.I. logic:
+- if the previous player told me about one of my index's color, then I will play it as soon as possible
+  (ex. I say to my next player: "card #3 is white". Then #3 is probably safe to play)
+
+- if the previous player told me about one of my index's number, then I will play it as soon as possible
+  (ex. I say to my next player: "card #3 is a '4' ". Then #3 is probably safe to play)
+
+- if I know a card's number AND there exists a card with number-1, then I will play it as soon as possible
+  (ex. I know I got a '5', and I see there's a '4' on the table)
+  By the rules of the game, we only care "can this be legally played", not "is this the right color AND the right order"
+
+- if I really don't have enough information about which to play, I will discard a random card (random index) to replenish an infotoken
+  rather than playing a card and risk losing a fusetoken
+
+- if I don't know/not sure whether or not if a card is playable, I will treat it as "not playable"
+
+- each struct card will have 2 field keeping track of "is it playable?" and "what color is it?"
+
+- (OPTIONAL TO DO) human players tend to shuffle their hand after a card is played in real life.
+  A.I. do not shuffle their hand. This means near the end of the game it's possible to have a hand like this: [red, 2, yes][][][][yellow, 2, no]
+
+- (TO DO) add a command to display all A.I.'s knowledge. The output should be something like this:
+  AI #1 knows: [red, 1, no][yellow, 1, yes][yellow, 3, no][unknown, 5, no][unknown, unknown, no]
