@@ -18,6 +18,9 @@ A player may play a card during his/her turn. Successfully completing a suit rep
 
 
 A game contains cards in 5 suits: white, yellow, green, blue, and red
+
+Note: the real-life 'multicolored/rainbow' cards are ignored in this game
+
 Each suit contains:
 
 3X '1'
