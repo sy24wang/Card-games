@@ -15,3 +15,18 @@ You may choose to draw a 3rd card after drawing those 2 cards.
 The A.I. may also choose to draw the 3rd card
 
 Whoever have their final score closest to 9 wins the game
+
+
+TODO: improve the A.I.
+
+Punto banco rule: if player drew the 3rd card, the AI's response will be as follows
+If Player drew a 2 or 3, Banker draws with 0-4 and stands with 5-7.
+If Player drew a 4 or 5, Banker draws with 0-5 and stands with 6-7.
+If Player drew a 6 or 7, Banker draws with 0-6 and stands with 7.
+If Player drew an 8, Banker draws with 0-2 and stands with 3-7.
+If Player drew an ace, 9, 10, or face-card, the Banker draws with 0-3 and stands with 4-7
+
+Implementation: (from AI's standpoint) 
+1. check the 3rd card drawn by player
+2. check my current hand
+3. draw 3rd card if condition matches. Otherwise stay as it is
