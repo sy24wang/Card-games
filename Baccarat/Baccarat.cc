@@ -63,20 +63,24 @@ void printrule()
 
 bool drawthird(int player, int ai)
 {
-	bool match_one = (((player == 2) || (player == 3)) && ((ai >= 0) && (ai <= 4)));	//player's third card is 2 or 3. AI draws if current AI's score is 0-4
-	bool match_two = (((player == 4) || (player == 5)) && ((ai >= 0) && (ai <= 5)));	//player's third card is 4 or 5. AI draws if current AI's score is 0-5
-	bool match_three = (((player == 6) || (player == 7)) && ((ai >= 0) && (ai <= 6)));	//player's third card is 6 or 7. AI draws if current AI's score is 0-6
-	bool match_four = (((player == 0) || (player == 1) || (player == 9)) && ((ai >= 0) && (ai <= 3)));	//player's third card is an ace, 9, 10, or face-card (0). AI draws if current AI's score is 0-3
-	bool match_five = ((player == 8) && ((ai >= 0) && (ai <= 2))); //player's third card is 8. AI draws if current AI's score is 0-2
+	bool match_one = (((player == 2) || (player == 3)) && ((ai >= 0) && (ai <= 4)));	//player is 2 or 3. AI draws if current AI's score is 0-4
+	bool match_two = (((player == 4) || (player == 5)) && ((ai >= 0) && (ai <= 5)));	//player is 4 or 5. AI draws if current AI's score is 0-5
+	bool match_three = (((player == 6) || (player == 7)) && ((ai >= 0) && (ai <= 6)));	//player is 6 or 7. AI draws if current AI's score is 0-6
+	bool match_four = (((player == 0) || (player == 1) || (player == 9)) && ((ai >= 0) && (ai <= 3)));	//player is an ace, 9, 10, or face-card (0). AI draws if current AI's score is 0-3
+	bool match_five = ((player == 8) && ((ai >= 0) && (ai <= 2))); //player is 8. AI draws if current AI's score is 0-2
 	return (match_one || match_two || match_three || match_four || match_five);
 }
 
 void startgame()
 {
 	int repeat = 0;
-	srand(time(NULL));
 
+	//difficulty: in case of tie, conservative = prefer to stay (both tie), aggressive = prefer to draw (risk to win)
+
+	string difficulty = "conservative";	//AI will prefer to tie than risk to win.
+	//string difficulty = "aggressive";	//AI will prefer to draw 3rd card than to tie
 	do{
+	srand(time(NULL));
 	int card_face_value_player;
 	int card_face_value_ai;
 	int final_player_score;
@@ -105,6 +109,7 @@ void startgame()
 
 	card_face_value_player = strtoint(p1) + strtoint(p2);
 	card_face_value_ai = strtoint(a1) + strtoint(a2);
+	int decision_player = finalscore(card_face_value_player);
 	int decision_ai = finalscore(card_face_value_ai);
 
 	cout << "Press y to draw the 3rd card" << endl;
@@ -128,12 +133,22 @@ void startgame()
 			card_face_value_ai += strtoint(a3);
 		}
 	}	
-	/*
-			//if player did not choose to draw the 3rd card: AI will draw if it's at a strict disadvantage
-			//TO DO: perhaps it can be improved further (assuming cheat mode is off, player doesn't know that AI's at a disadvantage)
+	
+	//if player did not choose to draw the 3rd card: AI will draw if it's at a strict disadvantage
+	//assuming cheat mode is off, player doesn't know that AI's at a disadvantage
+	//
 	else
 	{
-		if (decision_ai < decision_player)
+		bool trigger;
+		if (difficulty == "aggressive")
+		{
+			trigger = ((decision_ai <= decision_player) && (drawthird(decision_player, decision_ai)));
+		}
+		else if (difficulty == "conservative")
+		{
+			trigger = ((decision_ai < decision_player) && (drawthird(decision_player, decision_ai)));
+		}
+		if (trigger)
 		{
 			cout << "Computer has decided to draw the 3rd card!" << endl;
 			a3 = randomcard();
@@ -143,7 +158,7 @@ void startgame()
 	        }
 			card_face_value_ai += strtoint(a3);			
 		}
-	}*/
+	}
 
 	final_player_score = finalscore(card_face_value_player);
 	final_ai_score = finalscore(card_face_value_ai);
@@ -171,7 +186,6 @@ void startgame()
 	cin >> repeat;
 
 	} while(repeat == 1);
-
 }
 
 int main()

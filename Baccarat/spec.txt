@@ -31,11 +31,6 @@ Implementation: (from AI's standpoint)
 2. check my current hand
 3. draw 3rd card if condition matches. Otherwise stay as it is
 
-
-
-
-TO DO: What if player did not draw the 3rd card? (assuming cheat mode is off, player doesn't know that AI's at a disadvantage) Under what condition should AI draw the 3rd card?
-
 TO DO: restrict the card limit: right now it's theoretically possible (although extremely unlikely) to have 6 Kings show up in a game
 
 TO DO: implement a save system (so that you can actually bet and win/lose money)
