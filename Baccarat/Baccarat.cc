@@ -30,7 +30,6 @@ string randomcard()
 {		
 	//generate number between 1 and 13
 	int cardvalue = rand() % 13 + 1;
-
 	if (cardvalue == 11)
 	{
 		return "J";
@@ -58,7 +57,7 @@ void printrule()
 	cout << "\tThe value is the 2 cards' face value added up" << endl;
 	cout << "\tYou may choose to draw the 3rd card, after knowing the first 2 cards" << endl;
 	cout << "\tYour score is the last digit of the value. (ex. 13 = 3, 17 = 7, 11 = 1)" << endl;
-    cout << "\tA 10 or a picture (J, Q, K) counts as 0 value" << endl;
+	cout << "\tA 10 or a picture (J, Q, K) counts as 0 value" << endl;
 	cout << "\tThe winner is the one with score closest to 9" << endl;
 }
 
@@ -94,9 +93,9 @@ void startgame()
 	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p1 << endl;
 	if (cheat)
-    {
+	{
 		cout << "Computer draw: " << a1 << endl;
-    }
+	}
 
 	cout << "You drew: " << p2 << endl;
 	if (cheat)
@@ -121,35 +120,36 @@ void startgame()
 		if (drawthird(strtoint(p3), decision_ai))
 		{
 			cout << "Computer has decided to draw the 3rd card!" << endl;
-	        a3 = randomcard();
+			a3 = randomcard();
 			if (cheat)
 			{
-	        	cout << "Computer drew: " << a3 << endl;
-	        }
+				cout << "Computer drew: " << a3 << endl;
+			}
 			card_face_value_ai += strtoint(a3);
 		}
 	}	
 	/*
-	else	//if player did not choose to draw the 3rd card: AI will draw if it's at a strict disadvantage
+			//if player did not choose to draw the 3rd card: AI will draw if it's at a strict disadvantage
 			//TO DO: perhaps it can be improved further (assuming cheat mode is off, player doesn't know that AI's at a disadvantage)
+	else
 	{
 		if (decision_ai < decision_player)
 		{
 			cout << "Computer has decided to draw the 3rd card!" << endl;
-	        a3 = randomcard();
+			a3 = randomcard();
 			if (cheat)
 			{
-	        	cout << "Computer drew: " << a3 << endl;
+				cout << "Computer drew: " << a3 << endl;
 	        }
 			card_face_value_ai += strtoint(a3);			
 		}
 	}*/
 
 	final_player_score = finalscore(card_face_value_player);
-    final_ai_score = finalscore(card_face_value_ai);
+	final_ai_score = finalscore(card_face_value_ai);
 
-    cout << "player score = " << p1 << " + " << p2 << " + " << p3 << " = " << final_player_score << endl;
-    cout << "ai score = " << a1 << " + " << a2 << " + " << a3 << " = " << final_ai_score << endl;
+	cout << "player score = " << p1 << " + " << p2 << " + " << p3 << " = " << final_player_score << endl;
+	cout << "ai score = " << a1 << " + " << a2 << " + " << a3 << " = " << final_ai_score << endl;
 
 	if(final_player_score == final_ai_score)
 	{
