@@ -63,7 +63,37 @@ void printrule()
         cout << "\tA 10 or a picture (J, Q, K) counts as 0 value" << endl;
 	cout << "\tThe winner is the one with score closest to 9" << endl;
 }
-	
+bool drawthird(int player, int ai)
+{
+	cout << "ENTER drawthird" << endl;
+	if (((player == 2) || (player == 3)) && ((ai >= 0) && (ai <= 4)))	//player's third card is 2 or 3. AI draws if current AI's score is 0-4
+	{
+		cout << "A" << endl;
+		return true;
+	}
+	else if (((player == 4) || (player == 5)) && ((ai >= 0) && (ai <= 5)))	//player's third card is 4 or 5. AI draws if current AI's score is 0-5
+	{
+		cout << "B" << endl;
+		return true;
+	}
+	else if (((player == 6) || (player == 7)) && ((ai >= 0) && (ai <= 6)))	//player's third card is 6 or 7. AI draws if current AI's score is 0-6
+	{
+		cout << "C" << endl;
+		return true;
+	}
+	else if ((player == 8) && ((ai >= 0) && (ai <= 2)))	//player's third card is 8. AI draws if current AI's score is 0-2
+	{
+		cout << "D" << endl;
+		return true;
+	}
+	else if (((player == 0) || (player == 1) || (player == 9)) && ((ai >= 0) && (ai <= 3)))	//player's third card is an ace, 9, 10, or face-card (0). AI draws if current AI's score is 0-3
+	{
+		cout << "E" << endl;
+		return true;
+	}
+
+	return false;
+}
 void startgame()
 {
 	int repeat = 0;
@@ -72,10 +102,10 @@ void startgame()
 
 	do{
 	
-	int playervalue;
-	int aivalue;
-	int playerscore;
-	int aiscore;
+	int card_face_value_player;
+	int card_face_value_ai;
+	int final_player_score;
+	int final_ai_score;
 	
 	string p1 = randomcard();
 	string a1 = randomcard();
@@ -88,9 +118,9 @@ void startgame()
 	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p1 << endl;
 	if (cheat)
-        {
+    {
 		cout << "Computer draw: " << a1 << endl;
-        }
+    }
 
 	cout << "You drew: " << p2 << endl;
 	if (cheat)
@@ -98,60 +128,66 @@ void startgame()
 		cout << "Computer draw: " << a2 << endl;
 	}
 
-	playervalue = strtoint(p1) + strtoint(p2);
-	aivalue = strtoint(a1) + strtoint(a2);
+	card_face_value_player = strtoint(p1) + strtoint(p2);
+	card_face_value_ai = strtoint(a1) + strtoint(a2);
 
-	cout << "Your cards' face value: " << playervalue << endl;
+	cout << "Your cards' face value: " << card_face_value_player << endl;
 	
 	if (cheat)
 	{
-		cout << "ai's cards' face value: " << aivalue << endl;	
+		cout << "ai's cards' face value: " << card_face_value_ai << endl;	
 	}
 
-        int aidecisionscore = finalscore(aivalue);
-        int playerdecisionscore = finalscore(playervalue);
 
-        if ((aidecisionscore <= playerdecisionscore) && (aidecisionscore < 6))   //seems to be a bad idea for ai, if ai's score is already bigger or equal to 6 
-        {
-		cout << "Computer has decided to draw the 3rd card!" << endl;
-                a3 = randomcard();
-		if (cheat)
-		{
-                	cout << "Computer drew: " << a3 << endl;
-                }
-		aivalue += strtoint(a3);
-        }
+    int aidecisionscore = finalscore(card_face_value_ai);
+    int playerdecisionscore = finalscore(card_face_value_player);
+    cout << "aidecisionscore = " << aidecisionscore << endl;
+    cout << "playerdecisionscore = " << playerdecisionscore << endl;
+
 
 	cout << "Would you like to draw the 3rd card? Type \"Yes\" or \"No\"" << endl;
 	cin >> thirdcardchoice;
 
-				
 	if ((thirdcardchoice == "yes") || (thirdcardchoice == "Yes") || (thirdcardchoice == "y") || (thirdcardchoice == "Y"))
 	{
 		p3 = randomcard();
 		cout << "You drew: " << p3 << endl;
-		playervalue += strtoint(p3);
+		card_face_value_player += strtoint(p3);
 	}	
+	cout << "===================\n";
+	cout << "card_face_value_player = " << card_face_value_player << endl;
+	cout << "card_face_value_ai = " << card_face_value_ai << endl;
 
 
-	playerscore = finalscore(playervalue);
-        aiscore = finalscore(aivalue);
+	if (drawthird(playerdecisionscore, card_face_value_ai))
+	{
+		cout << "Computer has decided to draw the 3rd card!" << endl;
+        a3 = randomcard();
+		if (cheat)
+		{
+                	cout << "Computer drew: " << a3 << endl;
+        }
+		card_face_value_ai += strtoint(a3);
+	}
 
-        cout << "player score = " << playerscore << endl;
+	final_player_score = finalscore(card_face_value_player);
+    final_ai_score = finalscore(card_face_value_ai);
 
-	cout << "ai score = " << aiscore << endl;
+        cout << "player score = " << final_player_score << endl;
+
+	cout << "ai score = " << final_ai_score << endl;
 	
 
-	if(playerscore == aiscore)
+	if(final_player_score == final_ai_score)
 	{
 		cout << "It's a tie!" << endl;
 	}
-	else if (playerscore > aiscore)
+	else if (final_player_score > final_ai_score)
 	{
 		cout << "You win!" << endl;
 		playerwin++;
 	}
-	else if (playerscore < aiscore)
+	else if (final_player_score < final_ai_score)
 	{
 		cout << "Computer wins this time" << endl;
 		aiwin++;
