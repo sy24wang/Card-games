@@ -1,25 +1,14 @@
-Play with a standard 52-card deck
+Note: in real-world Baccarat usually contains up to 8 decks of 52-cards. So theoretically possible (although extremely unlikely) to have 6 Kings show up in a game
 
-All cards are of its own value(i.e. '2' = 2 points, '3' = 3 points)
-J = 11, Q = 12, K = 13
-
-Player and A.I. will both draw 2 cards
-
-The final score is the score of your hand (2 cards) mod 10.
-For example, if your hand is KK then it's (13 + 13) % 10 = 6
-if your hand is AJ then it's (1 + 11) % 10 = 2
-if your hand is 34 then it's (3 + 4) % 10 = 7
-
-You may choose to draw a 3rd card after drawing those 2 cards.
-
-The A.I. may also choose to draw the 3rd card
-
-Whoever have their final score closest to 9 wins the game
+Full playing rules are written in function printrule()
 
 
-AI's rule:
+AI rules:
 
-Punto banco: if player drew the 3rd card, the AI's response will be as follows
+if player stayed with 2 cards, then draw if current score is 0-5, stay if 6-7
+
+if player drew the 3rd card, the AI's response will be as follows:
+
 If Player drew a 2 or 3, Banker draws with 0-4 and stands with 5-7.
 If Player drew a 4 or 5, Banker draws with 0-5 and stands with 6-7.
 If Player drew a 6 or 7, Banker draws with 0-6 and stands with 7.
@@ -29,8 +18,7 @@ If Player drew an ace, 9, 10, or face-card, the Banker draws with 0-3 and stands
 Implementation: (from AI's standpoint) 
 1. check the 3rd card drawn by player
 2. check my current hand
-3. draw 3rd card if condition matches. Otherwise stay as it is
+3. draw 3rd card if condition matches. Otherwise stay
 
-TO DO: restrict the card limit: right now it's theoretically possible (although extremely unlikely) to have 6 Kings show up in a game
 
 TO DO: implement a save system (so that you can actually bet and win/lose money)
