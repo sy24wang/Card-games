@@ -87,8 +87,8 @@ void startgame()
 	string a1 = randomcard();
 	string p2 = randomcard();
 	string a2 = randomcard();
-	string p3 = "none";
-	string a3 = "none";
+	string p3 = "N/A";
+	string a3 = "N/A";
 	string thirdcardchoice;
         
 	cout << "---------------------------------------------------" << endl;
@@ -148,8 +148,8 @@ void startgame()
 	final_player_score = finalscore(card_face_value_player);
     final_ai_score = finalscore(card_face_value_ai);
 
-    cout << "player score = " << strtoint(p1) << " + " << strtoint(p2) << " + " << strtoint(p3) << " = " << final_player_score << endl;
-    cout << "ai score = " << strtoint(a1) << " + " << strtoint(a2) << " + " << strtoint(a3) << " = " << final_ai_score << endl;
+    cout << "player score = " << p1 << " + " << p2 << " + " << p3 << " = " << final_player_score << endl;
+    cout << "ai score = " << a1 << " + " << a2 << " + " << a3 << " = " << final_ai_score << endl;
 
 	if(final_player_score == final_ai_score)
 	{
