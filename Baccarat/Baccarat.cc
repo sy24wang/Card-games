@@ -3,7 +3,6 @@
 #include <sstream>
 #include <cstdlib>
 #include <time.h>
-
 using namespace std;
 
 bool cheat = true;
@@ -24,7 +23,6 @@ int strtoint(string str)
 {
     int num;
     istringstream(str) >> num;
-
     return num;
 }
 
@@ -60,48 +58,26 @@ void printrule()
 	cout << "\tThe value is the 2 cards' face value added up" << endl;
 	cout << "\tYou may choose to draw the 3rd card, after knowing the first 2 cards" << endl;
 	cout << "\tYour score is the last digit of the value. (ex. 13 = 3, 17 = 7, 11 = 1)" << endl;
-        cout << "\tA 10 or a picture (J, Q, K) counts as 0 value" << endl;
+    cout << "\tA 10 or a picture (J, Q, K) counts as 0 value" << endl;
 	cout << "\tThe winner is the one with score closest to 9" << endl;
 }
+
 bool drawthird(int player, int ai)
 {
-	cout << "ENTER drawthird" << endl;
-	if (((player == 2) || (player == 3)) && ((ai >= 0) && (ai <= 4)))	//player's third card is 2 or 3. AI draws if current AI's score is 0-4
-	{
-		cout << "A" << endl;
-		return true;
-	}
-	else if (((player == 4) || (player == 5)) && ((ai >= 0) && (ai <= 5)))	//player's third card is 4 or 5. AI draws if current AI's score is 0-5
-	{
-		cout << "B" << endl;
-		return true;
-	}
-	else if (((player == 6) || (player == 7)) && ((ai >= 0) && (ai <= 6)))	//player's third card is 6 or 7. AI draws if current AI's score is 0-6
-	{
-		cout << "C" << endl;
-		return true;
-	}
-	else if ((player == 8) && ((ai >= 0) && (ai <= 2)))	//player's third card is 8. AI draws if current AI's score is 0-2
-	{
-		cout << "D" << endl;
-		return true;
-	}
-	else if (((player == 0) || (player == 1) || (player == 9)) && ((ai >= 0) && (ai <= 3)))	//player's third card is an ace, 9, 10, or face-card (0). AI draws if current AI's score is 0-3
-	{
-		cout << "E" << endl;
-		return true;
-	}
-
-	return false;
+	bool match_one = (((player == 2) || (player == 3)) && ((ai >= 0) && (ai <= 4)));	//player's third card is 2 or 3. AI draws if current AI's score is 0-4
+	bool match_two = (((player == 4) || (player == 5)) && ((ai >= 0) && (ai <= 5)));	//player's third card is 4 or 5. AI draws if current AI's score is 0-5
+	bool match_three = (((player == 6) || (player == 7)) && ((ai >= 0) && (ai <= 6)));	//player's third card is 6 or 7. AI draws if current AI's score is 0-6
+	bool match_four = (((player == 0) || (player == 1) || (player == 9)) && ((ai >= 0) && (ai <= 3)));	//player's third card is an ace, 9, 10, or face-card (0). AI draws if current AI's score is 0-3
+	bool match_five = ((player == 8) && ((ai >= 0) && (ai <= 2))); //player's third card is 8. AI draws if current AI's score is 0-2
+	return (match_one || match_two || match_three || match_four || match_five);
 }
+
 void startgame()
 {
 	int repeat = 0;
-
 	srand(time(NULL));
 
 	do{
-	
 	int card_face_value_player;
 	int card_face_value_ai;
 	int final_player_score;
@@ -111,8 +87,8 @@ void startgame()
 	string a1 = randomcard();
 	string p2 = randomcard();
 	string a2 = randomcard();
-	string p3;
-	string a3;
+	string p3 = "none";
+	string a3 = "none";
 	string thirdcardchoice;
         
 	cout << "---------------------------------------------------" << endl;
@@ -130,53 +106,50 @@ void startgame()
 
 	card_face_value_player = strtoint(p1) + strtoint(p2);
 	card_face_value_ai = strtoint(a1) + strtoint(a2);
+	int decision_ai = finalscore(card_face_value_ai);
 
-	cout << "Your cards' face value: " << card_face_value_player << endl;
-	
-	if (cheat)
-	{
-		cout << "ai's cards' face value: " << card_face_value_ai << endl;	
-	}
-
-
-    int aidecisionscore = finalscore(card_face_value_ai);
-    int playerdecisionscore = finalscore(card_face_value_player);
-    cout << "aidecisionscore = " << aidecisionscore << endl;
-    cout << "playerdecisionscore = " << playerdecisionscore << endl;
-
-
-	cout << "Would you like to draw the 3rd card? Type \"Yes\" or \"No\"" << endl;
+	cout << "Press y to draw the 3rd card" << endl;
 	cin >> thirdcardchoice;
 
-	if ((thirdcardchoice == "yes") || (thirdcardchoice == "Yes") || (thirdcardchoice == "y") || (thirdcardchoice == "Y"))
+	if ((thirdcardchoice == "y") || (thirdcardchoice == "Y"))
 	{
 		p3 = randomcard();
 		cout << "You drew: " << p3 << endl;
 		card_face_value_player += strtoint(p3);
-	}	
-	cout << "===================\n";
-	cout << "card_face_value_player = " << card_face_value_player << endl;
-	cout << "card_face_value_ai = " << card_face_value_ai << endl;
 
-
-	if (drawthird(playerdecisionscore, card_face_value_ai))
-	{
-		cout << "Computer has decided to draw the 3rd card!" << endl;
-        a3 = randomcard();
-		if (cheat)
+		//note: we want to compare ai's hand (2 cards) vs. the 3rd card (that player just drew)
+		if (drawthird(strtoint(p3), decision_ai))
 		{
-                	cout << "Computer drew: " << a3 << endl;
-        }
-		card_face_value_ai += strtoint(a3);
-	}
+			cout << "Computer has decided to draw the 3rd card!" << endl;
+	        a3 = randomcard();
+			if (cheat)
+			{
+	        	cout << "Computer drew: " << a3 << endl;
+	        }
+			card_face_value_ai += strtoint(a3);
+		}
+	}	
+	/*
+	else	//if player did not choose to draw the 3rd card: AI will draw if it's at a strict disadvantage
+			//TO DO: perhaps it can be improved further (assuming cheat mode is off, player doesn't know that AI's at a disadvantage)
+	{
+		if (decision_ai < decision_player)
+		{
+			cout << "Computer has decided to draw the 3rd card!" << endl;
+	        a3 = randomcard();
+			if (cheat)
+			{
+	        	cout << "Computer drew: " << a3 << endl;
+	        }
+			card_face_value_ai += strtoint(a3);			
+		}
+	}*/
 
 	final_player_score = finalscore(card_face_value_player);
     final_ai_score = finalscore(card_face_value_ai);
 
-        cout << "player score = " << final_player_score << endl;
-
-	cout << "ai score = " << final_ai_score << endl;
-	
+    cout << "player score = " << strtoint(p1) << " + " << strtoint(p2) << " + " << strtoint(p3) << " = " << final_player_score << endl;
+    cout << "ai score = " << strtoint(a1) << " + " << strtoint(a2) << " + " << strtoint(a3) << " = " << final_ai_score << endl;
 
 	if(final_player_score == final_ai_score)
 	{
@@ -187,17 +160,17 @@ void startgame()
 		cout << "You win!" << endl;
 		playerwin++;
 	}
-	else if (final_player_score < final_ai_score)
+	else 
 	{
-		cout << "Computer wins this time" << endl;
+		cout << "The bank wins!" << endl;
 		aiwin++;
 	}
 
-	cout << "Score: Player: " << playerwin << " " << "Computer: " << aiwin << endl;
-	cout << "play again? Press 1 for yes, 2 for no" << endl;
+	cout << "Score: Player: " << playerwin << " " << "Bank: " << aiwin << endl;
+	cout << "Press 1 to play again" << endl;
 	cin >> repeat;
 
-}while(repeat == 1);
+	} while(repeat == 1);
 
 }
 
@@ -206,8 +179,8 @@ int main()
 	int menuselection;
 	int cheatmodeselection;
 
-	cout << "Welcome to Bacarrat! Press 1 for rule, press 2 to start playing" << endl;
-	cin >> menuselection;
+	cout << "Welcome to Bacarrat!" << endl;
+	printrule();
 
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
 	cin >> cheatmodeselection;
@@ -220,21 +193,6 @@ int main()
 	{
 		cheat = false;
 	}
-	if (menuselection == 1)
-	{
-		printrule();
-		srand(time(NULL));
-		startgame();
-	}
-	else if (menuselection == 2)	
-	{
-		srand(time(NULL));
-		startgame();
-	}
-	else
-	{
-		cout << "not recognized, exiting..." << endl;
-		return 0;
-	}
-	
+	srand(time(NULL));
+	startgame();
 }

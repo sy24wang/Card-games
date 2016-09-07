@@ -17,9 +17,9 @@ The A.I. may also choose to draw the 3rd card
 Whoever have their final score closest to 9 wins the game
 
 
-TODO: improve the A.I.
+AI's rule:
 
-Punto banco rule: if player drew the 3rd card, the AI's response will be as follows
+Punto banco: if player drew the 3rd card, the AI's response will be as follows
 If Player drew a 2 or 3, Banker draws with 0-4 and stands with 5-7.
 If Player drew a 4 or 5, Banker draws with 0-5 and stands with 6-7.
 If Player drew a 6 or 7, Banker draws with 0-6 and stands with 7.
@@ -30,3 +30,12 @@ Implementation: (from AI's standpoint)
 1. check the 3rd card drawn by player
 2. check my current hand
 3. draw 3rd card if condition matches. Otherwise stay as it is
+
+
+
+
+TO DO: What if player did not draw the 3rd card? (assuming cheat mode is off, player doesn't know that AI's at a disadvantage) Under what condition should AI draw the 3rd card?
+
+TO DO: restrict the card limit: right now it's theoretically possible (although extremely unlikely) to have 6 Kings show up in a game
+
+TO DO: implement a save system (so that you can actually bet and win/lose money)
