@@ -85,5 +85,9 @@ A.I. logic:
   AI #1 knows: [red, 1, no][yellow, 1, yes][yellow, 3, no][unknown, 5, no][unknown, unknown, no]
   (Since AI's actual hand should be different than "What AI knows") 
 
+- [TODO] checks for endgame conditions. It's best to NOT do continuous polling (have all cards been used yet?)
+
+- [TODO] differentiate between "play a card" vs. "discard a card" in Player::playCard
+
 - (OPTIONAL TO DO) human players tend to shuffle their hand after a card is played in real life.
   A.I. do not shuffle their hand. This means near the end of the game it's possible to have a hand like this: [red, 2, yes][][][][yellow, 2, no]
