@@ -46,7 +46,8 @@ int Player::CardGen()
 
 Player::Player()
 {
-	DEBUG = false;
+	DEBUG = true;
+	init();
 	int card;
 	card = CardGen();
 	c1 = new Card(card);
@@ -72,13 +73,8 @@ Player::Player()
 //Note: playCard takes in the literal (physical) index, forget about index 0
 //You'd say I want to "play card #1", not "play card #0" in real-life
 
-void Player::playCard(int handindex)
+void Player::playCard(string play_or_discard, int handindex)
 {
-	//Play a card
-	/*
-	if (wrongcard)
-	Fuse.wrongCardPlayed
-	*/
 
 	//finding out which card exactly that got played
 	Card *temp;
@@ -86,24 +82,42 @@ void Player::playCard(int handindex)
 	{
 		case 1:
 			temp = c1;
+			cout << "c1" << endl;
 			break;
 		case 2:
 			temp = c2;
+			cout << "c2" << endl;
 			break;
 		case 3:
 			temp = c3;
+			cout << "c3" << endl;
 			break;
 		case 4:
 			temp = c4;
+			cout << "c4" << endl;
 			break;
 		case 5:
 			temp = c5;
+			cout << "c5" << endl;
 			break;
 		default:
 			temp = NULL;
 			cout << "ERROR: Player::playCard's index out of bounds...can't play" << endl;
 			return;
 	}
+	/*
+	if (play_or_discard == "discard")
+	{
+
+	}
+	if (play_or_discard == "play")
+	{
+	//Play a card
+	/*
+	if (wrongcard)
+	Fuse.wrongCardPlayed
+	
+	}*/
 
 
 	//It's been played, so it's unavailable for drawing (Just played Green 5 which only got 1 copy, can't draw Green 5 again)

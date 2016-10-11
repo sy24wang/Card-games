@@ -22,7 +22,7 @@ friend std::ostream &operator<<(std::ostream &out, const Player &p);
 public:
 	Player();
 	void init();
-	void playCard(int handindex);
+	void playCard(std::string play_or_discard, int handindex);
 };
 
 #endif
