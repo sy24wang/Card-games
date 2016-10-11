@@ -9,7 +9,7 @@ class Card
 	int cardValue;
 	
 	int Facevalue(int card);
-
+	bool playable;
 friend std::ostream &operator<<(std::ostream &out, const Card &c);
 
 public:

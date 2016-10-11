@@ -27,13 +27,8 @@ int main()
 	Information infotoken(8);
 	Fuse fusetoken(3);
 
-	cout << infotoken.howmanytoken() << endl;
-	cout << fusetoken.howmanytoken() << endl;
 	infotoken.giveinfo();
 	infotoken.giveinfo();
 
 	fusetoken.wrongCardPlayed();
-
-	cout << infotoken.howmanytoken() << endl;
-	cout << fusetoken.howmanytoken() << endl;
 }

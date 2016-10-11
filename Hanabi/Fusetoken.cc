@@ -10,10 +10,10 @@ Fuse::Fuse(int tokens)
 void Fuse::wrongCardPlayed()
 {
 	availablefusetoken -= 1;
+	cout << "ALERT! Wrong card played! Fusetokens left: " << this->howmanytoken() << endl;
 }
 
 int Fuse::howmanytoken()
 {
-	cout << "Fuse Tokens left: ";
 	return availablefusetoken;
 }

@@ -69,10 +69,11 @@ Card::Card(int card)
 		pattern = "ERROR";
 		cardValue = -999;
 	}
+	playable = false;
 }
 
 ostream &operator<<(ostream &out, const Card &other)
 {
-    out << other.pattern << " " << other.cardValue << endl;
+    out << "Pattern: " << other.pattern << ". Value: " << other.cardValue << ". Playable? " << other.playable << endl;
     return out;
 }

@@ -78,10 +78,10 @@ A.I. logic:
 
 - if I don't know/not sure whether or not if a card is playable, I will treat it as "not playable"
 
-- each struct card will have 2 field keeping track of "is it playable?" and "what color is it?"
+- each struct card will have 3 field keeping track of: "is it playable?" "what color is it?" "what number is it?"
+
+- [DONE] add a command to display all A.I.'s knowledge. The output should be something like this:
+  AI #1 knows: [red, 1, no][yellow, 1, yes][yellow, 3, no][unknown, 5, no][unknown, unknown, no]
 
 - (OPTIONAL TO DO) human players tend to shuffle their hand after a card is played in real life.
   A.I. do not shuffle their hand. This means near the end of the game it's possible to have a hand like this: [red, 2, yes][][][][yellow, 2, no]
-
-- (TO DO) add a command to display all A.I.'s knowledge. The output should be something like this:
-  AI #1 knows: [red, 1, no][yellow, 1, yes][yellow, 3, no][unknown, 5, no][unknown, unknown, no]

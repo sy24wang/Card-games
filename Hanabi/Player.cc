@@ -27,7 +27,7 @@ void Player::init()
 
 int Player::CardGen()
 {
-	const bool DEBUG = false;
+	const bool DEBUG = true;
 
 	int card = randInt(1, 20);
 	if (DEBUG)
