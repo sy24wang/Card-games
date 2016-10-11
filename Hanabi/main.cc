@@ -31,4 +31,8 @@ int main()
 	infotoken.giveinfo();
 
 	fusetoken.wrongCardPlayed();
+
+	p1.playCard(1);
+	p1.playCard(1);
+	p1.playCard(2);
 }

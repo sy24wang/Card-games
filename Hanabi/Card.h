@@ -6,16 +6,16 @@
 class Card
 {
 	std::string pattern;
-	int cardValue;
-	
+
 	int Facevalue(int card);
 	bool playable;
 friend std::ostream &operator<<(std::ostream &out, const Card &c);
 
 public:
 	Card(int card);
-	
 
+	int cardValue;
+	int indexValue;
 };
 
 #endif

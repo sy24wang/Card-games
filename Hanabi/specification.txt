@@ -1,5 +1,6 @@
-Hanabi is a co-operative game played by 4 players, each person will have 5 cards in their hands that is shown only to everyone else (i.e. I don't know what cards I have, but the other 3 people do)
+Rules:
 
+Hanabi is a co-operative game played by 4 players, each person will have 5 cards in their hands that is shown only to everyone else (i.e. I don't know what cards I have, but the other 3 people do)
 
 A player may give ONE clue to another player, limited by the information token. A game starts with 8, and each clue costs 1 information token
 
@@ -10,7 +11,6 @@ A player may give ONE clue to another player, limited by the information token. 
   "The cards at index <n, n, ...> is <x>"
 
 A player MAY NOT give the clue "The card at index <n> is playable"
-
 
 A player may discard a card during his/her turn. Discarding a card replenishes 1 information token
 
@@ -58,6 +58,7 @@ Card value tracker: Array of [51]
 
 [41]-[50] = Red      => [41][42][43] = '1', [44][45] = '2', [46][47] = '3', [48][49] = '4', [50] = '5'
 
+Lots of debugging info in Player.cc, just turn it on in the initialization function
 
 A.I.'s output should be in the format <color order playable>. Example: [red, 5, no]
 ===============================================
@@ -80,8 +81,9 @@ A.I. logic:
 
 - each struct card will have 3 field keeping track of: "is it playable?" "what color is it?" "what number is it?"
 
-- [DONE] add a command to display all A.I.'s knowledge. The output should be something like this:
+- [TODO] add a command to display all A.I.'s knowledge. The output should be something like this:
   AI #1 knows: [red, 1, no][yellow, 1, yes][yellow, 3, no][unknown, 5, no][unknown, unknown, no]
+  (Since AI's actual hand should be different than "What AI knows") 
 
 - (OPTIONAL TO DO) human players tend to shuffle their hand after a card is played in real life.
   A.I. do not shuffle their hand. This means near the end of the game it's possible to have a hand like this: [red, 2, yes][][][][yellow, 2, no]

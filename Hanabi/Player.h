@@ -14,7 +14,7 @@ class Player
 	Card *c4 = NULL;
 	Card *c5 = NULL;
 	std::vector <Card> playerHand;
-
+	bool DEBUG;
 	int CardGen();
 
 friend std::ostream &operator<<(std::ostream &out, const Player &p);
@@ -22,7 +22,7 @@ friend std::ostream &operator<<(std::ostream &out, const Player &p);
 public:
 	Player();
 	void init();
-
+	void playCard(int handindex);
 };
 
 #endif
