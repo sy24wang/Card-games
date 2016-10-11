@@ -113,8 +113,8 @@ do{
 	string p3 = "N/A";
 	string a3 = "N/A";
 	string thirdcardchoice = "";
-    string cheat_card_selection;
-    string cheat_card;
+	string cheat_card_selection;
+	string cheat_card;
 
 	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p1 << endl;
