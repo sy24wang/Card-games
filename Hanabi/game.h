@@ -8,14 +8,16 @@
 
 class Game
 {
-public:
-	Game();
 	Player p1;
 	Player p2;
 	Player p3;
 	Player p4;
 	Information *infotoken;
 	Fuse *fusetoken;
+public:
+	Game();
+	void newGame();
+
 };
 
 

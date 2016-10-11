@@ -46,7 +46,7 @@ int Player::CardGen()
 
 Player::Player()
 {
-	DEBUG = true;
+	DEBUG = false;
 	init();
 	int card;
 	card = CardGen();
@@ -82,27 +82,22 @@ void Player::playCard(string play_or_discard, int handindex)
 	{
 		case 1:
 			temp = c1;
-			cout << "c1" << endl;
 			break;
 		case 2:
 			temp = c2;
-			cout << "c2" << endl;
 			break;
 		case 3:
 			temp = c3;
-			cout << "c3" << endl;
 			break;
 		case 4:
 			temp = c4;
-			cout << "c4" << endl;
 			break;
 		case 5:
 			temp = c5;
-			cout << "c5" << endl;
 			break;
 		default:
 			temp = NULL;
-			cout << "ERROR: Player::playCard's index out of bounds...can't play" << endl;
+			cout << "ERROR: can't play card #" << handindex << endl;
 			return;
 	}
 	/*
@@ -120,9 +115,9 @@ void Player::playCard(string play_or_discard, int handindex)
 	}*/
 
 
-	//It's been played, so it's unavailable for drawing (Just played Green 5 which only got 1 copy, can't draw Green 5 again)
-	int playedvalue = temp->indexValue;
-	cout << "The card got played was: " << *temp << endl;
+	//Card's gone, so it's unavailable for drawing (Just played Green 5 which only got 1 copy, can't draw Green 5 again)
+	int playedvalue = temp->getIndexValue();
+	cout << "Gone from hand: " << *temp << endl;
 	used[playedvalue] = 1;
 
 

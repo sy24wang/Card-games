@@ -42,39 +42,44 @@ Card::Card(int card)
 	if ((card >= 1) && (card <= 10))
 	{
 		pattern = "White";
-		cardValue = Facevalue(card);
+		faceValue = Facevalue(card);
 	}
 	else if ((card >= 11) && (card <= 20))
 	{
 		pattern = "Yellow";
-		cardValue = Facevalue(card);
+		faceValue = Facevalue(card);
 	}
 	else if ((card >= 21) && (card <= 30))
 	{
 		pattern = "Green";
-		cardValue = Facevalue(card);
+		faceValue = Facevalue(card);
 	}
 	else if ((card >= 31) && (card <= 40))
 	{
 		pattern = "Blue";
-		cardValue = Facevalue(card);
+		faceValue = Facevalue(card);
 	}
 	else if ((card >= 41) && (card <= 50))
 	{
 		pattern = "Red";
-		cardValue = Facevalue(card);
+		faceValue = Facevalue(card);
 	}
 	else
 	{
 		pattern = "ERROR";
-		cardValue = -999;
+		faceValue = -999;
 	}
 	indexValue = card;
 	playable = false;
 }
 
+int Card::getIndexValue()
+{
+	return indexValue;
+}
+
 ostream &operator<<(ostream &out, const Card &other)
 {
-    out << "Pattern: " << other.pattern << ". Value: " << other.cardValue << ". Playable? " << other.playable << ". indexValue: " << other.indexValue << endl;
+    out << "[" << other.indexValue << "] " << other.pattern << " " << other.faceValue << ". Playable? " << other.playable << endl;
     return out;
 }

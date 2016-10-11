@@ -1,12 +1,11 @@
 #include <iostream>
 #include "game.h"
-#include "Player.h"
 using namespace std;
 
 Game::Game()
 {
 	cout << "===============================\n";
-	
+
 	cout << "Player 1: " << endl << p1;
 	cout << "===============================\n";
 
@@ -21,4 +20,20 @@ Game::Game()
 	
 	infotoken = new Information(8);
 	fusetoken = new Fuse(3);
+}
+
+void Game::newGame()
+{
+	//Tester
+	infotoken->giveinfo();
+	infotoken->giveinfo();
+
+	fusetoken->wrongCardPlayed();
+
+	p1.playCard("play", 1);
+	p1.playCard("play", 1);
+	p1.playCard("play", 2);
+	p1.playCard("play", 5);
+	p1.playCard("play", 8);
+	p2.playCard("play", 9);
 }
