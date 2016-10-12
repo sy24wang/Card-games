@@ -10,6 +10,15 @@ Card::Card()
 	value = "X";
 }
 
+string Card::inttostr(int n)
+{
+    std::string s;
+    std::stringstream ss;
+    ss << n;
+	s = ss.str();
+	return s;
+}
+
 void Card::resetCard()
 {
 	score = 0;

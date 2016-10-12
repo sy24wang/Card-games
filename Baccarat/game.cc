@@ -28,9 +28,21 @@ void Game::compare(struct Player *p, struct Player *ai)
 	}
 }
 
+int Game::finalscore(int total)
+{
+	return total % 10;
+}
+
+//"J", "Q", "K" will fail, so it will return 0
+int Game::strtoint(std::string str)
+{
+	int num;
+	istringstream(str) >> num;
+	return num;
+}
+
 Game::Game()
 {
-	cout << "1\n";
 	cheat = true;
 	Player p;
 	Player ai;
@@ -58,6 +70,7 @@ bool Game::legalCard(string s)
 
 void Game::startGame()
 {
+
 	int cheatmodeselection = 0;
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
 	cin >> cheatmodeselection;

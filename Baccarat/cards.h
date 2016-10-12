@@ -7,23 +7,18 @@
 
 class Card
 {
-	public:
+
 	int score;
 	std::string value;
 
+public:
+	std::string inttostr(int n);
 	void randomCard();
-
-	Card();
-	
-	std::string inttostr(int n)
-	{
-	    std::string s;
-	    std::stringstream ss;
-	    ss << n;
-	    s = ss.str();
-	    return s;
-	}
 	void resetCard();
+	Card();
+friend class Game;
+friend class Player;
+
 };
 
 

@@ -6,27 +6,19 @@
 
 class Game
 {
-	public:
 	Player p;
 	Player ai;
 	bool cheat;
+
+public:
 	void compare(struct Player *p, struct Player *ai);
 	bool legalCard(std::string s);
+	int finalscore(int total);
+	bool drawThird(int player, int ai);
+	int strtoint(std::string str);
+
 	Game();
 	void startGame();
-
-	int finalscore(int total)
-	{
-		return total % 10;
-	}
-	//"J", "Q", "K" will fail, so it will return 0
-	int strtoint(std::string str)
-	{
-	    int num;
-	    std::istringstream(str) >> num;
-	    return num;
-	}
-	bool drawThird(int player, int ai);
 
 };
 

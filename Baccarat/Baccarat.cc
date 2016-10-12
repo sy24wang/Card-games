@@ -18,13 +18,13 @@ void printrule()
 
 int main()
 {
+	srand(time(NULL));
 	int menuselection;
 	int cheatmodeselection;
-	Game g;
 
+	Game g;
 	cout << "Welcome to Bacarrat!" << endl;
 	printrule();
 
-	srand(time(NULL));
 	g.startGame();
 }
