@@ -4,7 +4,12 @@
 
 using namespace std;
 
-
+Game::Game()
+{
+	cheat = true;
+	Player p;
+	Player ai;
+}
 
 void Game::compare(struct Player *p, struct Player *ai)
 {
@@ -41,13 +46,6 @@ int Game::strtoint(std::string str)
 	return num;
 }
 
-Game::Game()
-{
-	cheat = true;
-	Player p;
-	Player ai;
-}
-
 bool Game::drawThird(int player, int ai)
 {
 	bool match_one = (ai <= 2);											//if bank is <= 2, then draw
@@ -59,7 +57,6 @@ bool Game::drawThird(int player, int ai)
 	return (match_one || match_two || match_three || match_four || match_five);
 }
 
-
 bool Game::legalCard(string s)
 {
 	return ((s == "1") || (s == "2") || (s == "3") || (s == "4") || (s == "5") || 
@@ -67,10 +64,9 @@ bool Game::legalCard(string s)
 			(s == "J") || (s == "Q") || (s == "K"));
 }
 
-
 void Game::startGame()
 {
-
+	int repeat = 0;
 	int cheatmodeselection = 0;
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
 	cin >> cheatmodeselection;
@@ -84,8 +80,6 @@ void Game::startGame()
 		cheat = false;
 	}
 
-
-	int repeat = 0;
 do{
 	srand(time(NULL));
 	int card_face_value_player = 0;
@@ -97,33 +91,31 @@ do{
 	string cheat_card_selection;
 	string cheat_card;
 	cout << "---------------------------------------------------" << endl;
-	cout << "You drew: " << p.card1.value << endl;
+	cout << "You drew: " << p.card1.value << ", " << p.card2.value << endl;
 	if (cheat)
 	{
-		cout << "Computer draw: " << ai.card1.value << endl;
-	}
-
-	cout << "You drew: " << p.card2.value << endl;
-	if (cheat)
-	{
-		cout << "Computer draw: " << ai.card2.value << endl;
+		cout << "AI drew: " << ai.card1.value << ", " << ai.card2.value << endl;
 	}
 
 	card_face_value_player = p.card1.score + p.card2.score;
-	card_face_value_ai = ai.card1.score + ai.card2.score;
 	p.score = finalscore(card_face_value_player);
+
+	card_face_value_ai = ai.card1.score + ai.card2.score;
 	ai.score = finalscore(card_face_value_ai);
 
+	//If either side's score is 8 or 9, that's the end of the game
 	if ((p.score == 8) || (p.score == 9) || (ai.score == 8) || (ai.score == 9))
 	{
 		compare(&p, &ai);
 	}
+
+	//Otherwise, 3rd card may be drawn
 	else
 	{
 		cout << "Draw the 3rd card? y/n" << endl;
 		cin >> thirdcardchoice;
 
-		if (thirdcardchoice == "y")
+		if ((thirdcardchoice == "y") || (thirdcardchoice == "Y"))
 		{
 			p.card3.randomCard();
 			cout << "You drew: " << p.card3.value << endl;
@@ -147,16 +139,14 @@ do{
 				}
 				else if (cheat_card_selection != "999")
 				{
-					cout << "Alright, " << p.card3.value << " will be your 3rd card" << endl;
+					cout << "\nAlright, " << p.card3.value << " will be your 3rd card" << endl;
 				}
 			}
-
-
 			card_face_value_player += p.card3.score;
 		}	
+
 		//If player stayed with 2 cards, then draw if current score is 0-5 
 		//If player drew the 3rd card, then react according to the drawthird() logic
-		
 		if (((thirdcardchoice == "n") && (ai.score >= 0) && (ai.score <= 5)) ||
 			((thirdcardchoice == "y") && (drawThird(p.card3.score, ai.score))))
 		{
@@ -168,7 +158,6 @@ do{
 			}
 			card_face_value_ai += ai.card3.score;
 		}
-
 		p.score = finalscore(card_face_value_player);
 		ai.score = finalscore(card_face_value_ai);
 		compare(&p, &ai);
@@ -187,6 +176,7 @@ do{
 		ai.card2.randomCard();
 		ai.card3.resetCard();
 	}
+	
 }while(repeat == 1);
 
 }

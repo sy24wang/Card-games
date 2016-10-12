@@ -7,7 +7,6 @@
 
 class Card
 {
-
 	int score;
 	std::string value;
 
@@ -16,9 +15,9 @@ public:
 	void randomCard();
 	void resetCard();
 	Card();
+
 friend class Game;
 friend class Player;
-
 };
 
 

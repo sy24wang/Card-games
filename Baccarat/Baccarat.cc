@@ -21,7 +21,6 @@ int main()
 	srand(time(NULL));
 	int menuselection;
 	int cheatmodeselection;
-
 	Game g;
 	cout << "Welcome to Bacarrat!" << endl;
 	printrule();
