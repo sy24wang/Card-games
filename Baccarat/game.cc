@@ -6,19 +6,19 @@ using namespace std;
 
 
 
-void Game::compare(struct Player p, struct Player ai)
+void Game::compare(struct Player *p, struct Player *ai)
 {
-	if (p.score > ai.score)
+	if (p->score > ai->score)
 	{
 		cout << "You win!" << endl;
-		p.numOfWin++;		
+		p->numOfWin++;		
 	}
-	else if (p.score < ai.score)
+	else if (p->score < ai->score)
 	{
 		cout << "The bank wins!" << endl;
-		ai.numOfWin++;
+		ai->numOfWin++;
 	}
-	else if (p.score == ai.score)
+	else if (p->score == ai->score)
 	{
 		cout << "It's a tie!" << endl;
 	}
@@ -84,7 +84,7 @@ do{
 
 	if ((p.score == 8) || (p.score == 9) || (ai.score == 8) || (ai.score == 9))
 	{
-		compare(p, ai);
+		compare(&p, &ai);
 	}/*
 	else
 	{

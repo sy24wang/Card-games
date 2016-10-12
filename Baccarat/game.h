@@ -10,7 +10,7 @@ class Game
 	Player p;
 	Player ai;
 	bool cheat;
-	void compare(struct Player p, struct Player ai);
+	void compare(struct Player *p, struct Player *ai);
 
 	Game();
 	void startGame();
