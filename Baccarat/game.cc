@@ -48,6 +48,14 @@ bool Game::drawThird(int player, int ai)
 }
 
 
+bool Game::legalCard(string s)
+{
+	return ((s == "1") || (s == "2") || (s == "3") || (s == "4") || (s == "5") || 
+			(s == "6") || (s == "7") || (s == "8") || (s == "9") || (s == "10") || 
+			(s == "J") || (s == "Q") || (s == "K"));
+}
+
+
 void Game::startGame()
 {
 	int cheatmodeselection = 0;
@@ -106,7 +114,7 @@ do{
 		{
 			p.card3.randomCard();
 			cout << "You drew: " << p.card3.value << endl;
-			/*
+			
 			if (cheat)
 			{
 				cout << "psst...doesn't like it? Press 999 to select your 3rd card" << endl;
@@ -115,18 +123,22 @@ do{
 				{
 					cout << "What would you like to draw as your 3rd card?" << endl;
 					cin >> cheat_card;
-					while (!legalcard(cheat_card))
+					while (!legalCard(cheat_card))
 					{
 						cout << "Card not recognized, please choose from 1, 2, ... K" << endl;
 						cin >> cheat_card;
 					}
-					p3 = cheat_card; 
+					p.card3.resetCard();
+					p.card3.value = cheat_card;
+					p.card3.score = strtoint(cheat_card);
 				}
 				else if (cheat_card_selection != "999")
 				{
-					cout << "Alright, " << p3 << " will be your 3rd card" << endl;
+					cout << "Alright, " << p.card3.value << " will be your 3rd card" << endl;
 				}
-			}*/
+			}
+
+
 			card_face_value_player += p.card3.score;
 		}	
 		//If player stayed with 2 cards, then draw if current score is 0-5 

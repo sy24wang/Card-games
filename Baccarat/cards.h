@@ -12,7 +12,7 @@ class Card
 	std::string value;
 
 	void randomCard();
-	bool legalCard(std::string s);
+
 	Card();
 	
 	std::string inttostr(int n)

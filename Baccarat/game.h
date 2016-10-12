@@ -11,7 +11,7 @@ class Game
 	Player ai;
 	bool cheat;
 	void compare(struct Player *p, struct Player *ai);
-
+	bool legalCard(std::string s);
 	Game();
 	void startGame();
 

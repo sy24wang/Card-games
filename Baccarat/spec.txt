@@ -21,4 +21,15 @@ Implementation: (from AI's standpoint)
 3. draw 3rd card if condition matches. Otherwise stay
 
 
+Technical spec:
+
+main (Baccarat.cc) calls Game. Game calls Player. Player calls Card
+
+Note: there are 2 fields in the Card class: 'value' and 'score'. 
+'value' is the card's face value stored in string (ex. "J", "10", "7", "K")
+'score' is the card's face value stored in int (ex. 0, 10, 2, 3, 7). We treat "J", "Q", "K" as 0 as per game rule
+
+
 TO DO: implement a save system (so that you can actually bet and win/lose money)
+
+
