@@ -8,6 +8,10 @@ using namespace std;
 
 void Game::compare(struct Player *p, struct Player *ai)
 {
+	cout << "---------------------------------------------------" << endl;
+	cout << "player score = " << p->card1.value << " + " << p->card2.value << " + " << p->card3.value << " = " << p->score << endl;
+	cout << "ai score = " << ai->card1.value << " + " << ai->card2.value << " + " << ai->card3.value << " = " << ai->score << endl;
+
 	if (p->score > ai->score)
 	{
 		cout << "You win!" << endl;
@@ -32,6 +36,17 @@ Game::Game()
 	Player ai;
 }
 
+bool Game::drawThird(int player, int ai)
+{
+	bool match_one = (ai <= 2);											//if bank is <= 2, then draw
+	bool match_two = ((ai == 3) && (player != 8));						//if bank is 3, then draw unless player drew an 8 as third card
+	bool match_three = ((ai == 4) && (player >= 2) && (player <= 7));	//if bank is 4, then draw if player drew 2-7
+	bool match_four = ((ai == 5) && (player >= 4) && (player <= 7));	//if bank is 5, then draw if player drew 4-7
+	bool match_five = ((ai == 6) && (player >= 6) && (player <= 7));	//if bank is 6, then draw if player drew 6 or 7
+																		//otherwise, the banker stands 
+	return (match_one || match_two || match_three || match_four || match_five);
+}
+
 
 void Game::startGame()
 {
@@ -52,18 +67,14 @@ void Game::startGame()
 	int repeat = 0;
 do{
 	srand(time(NULL));
-	int card_face_value_player;
-	int card_face_value_ai;
-	int final_player_score;
-	int final_ai_score;
+	int card_face_value_player = 0;
+	int card_face_value_ai = 0;
+	int final_player_score = 0;
+	int final_ai_score = 0;
 	
 	string thirdcardchoice = "";
 	string cheat_card_selection;
 	string cheat_card;
-	p.card1.randomCard();
-	p.card2.randomCard();
-	ai.card1.randomCard();
-	ai.card2.randomCard();
 	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p.card1.value << endl;
 	if (cheat)
@@ -77,15 +88,15 @@ do{
 		cout << "Computer draw: " << ai.card2.value << endl;
 	}
 
-	card_face_value_player = strtoint(p.card1.value) + strtoint(p.card2.value);
-	card_face_value_ai = strtoint(ai.card1.value) + strtoint(ai.card2.value);
+	card_face_value_player = p.card1.score + p.card2.score;
+	card_face_value_ai = ai.card1.score + ai.card2.score;
 	p.score = finalscore(card_face_value_player);
 	ai.score = finalscore(card_face_value_ai);
 
 	if ((p.score == 8) || (p.score == 9) || (ai.score == 8) || (ai.score == 9))
 	{
 		compare(&p, &ai);
-	}/*
+	}
 	else
 	{
 		cout << "Draw the 3rd card? y/n" << endl;
@@ -93,8 +104,9 @@ do{
 
 		if (thirdcardchoice == "y")
 		{
-			p3 = randomcard();
-			cout << "You drew: " << p3 << endl;
+			p.card3.randomCard();
+			cout << "You drew: " << p.card3.value << endl;
+			/*
 			if (cheat)
 			{
 				cout << "psst...doesn't like it? Press 999 to select your 3rd card" << endl;
@@ -114,33 +126,42 @@ do{
 				{
 					cout << "Alright, " << p3 << " will be your 3rd card" << endl;
 				}
-			}
-			card_face_value_player += strtoint(p3);
+			}*/
+			card_face_value_player += p.card3.score;
 		}	
 		//If player stayed with 2 cards, then draw if current score is 0-5 
 		//If player drew the 3rd card, then react according to the drawthird() logic
-		if (((thirdcardchoice == "n") && (decision_ai >= 0) && (decision_ai <= 5)) ||
-			((thirdcardchoice == "y") && (drawthird(strtoint(p3), decision_ai))))
+		
+		if (((thirdcardchoice == "n") && (ai.score >= 0) && (ai.score <= 5)) ||
+			((thirdcardchoice == "y") && (drawThird(p.card3.score, ai.score))))
 		{
 			cout << "Computer has decided to draw the 3rd card!" << endl;
-			a3 = randomcard();
+			ai.card3.randomCard();
 			if (cheat)
 			{
-				cout << "Computer drew: " << a3 << endl;
+				cout << "Computer drew: " << ai.card3.value << endl;
 			}
-			card_face_value_ai += strtoint(a3);
+			card_face_value_ai += ai.card3.score;
 		}
 
-		final_player_score = finalscore(card_face_value_player);
-		final_ai_score = finalscore(card_face_value_ai);
-
-		cout << "player score = " << p1 << " + " << p2 << " + " << p3 << " = " << final_player_score << endl;
-		cout << "ai score = " << a1 << " + " << a2 << " + " << a3 << " = " << final_ai_score << endl;
-		compare(final_player_score, final_ai_score);
-	}*/
+		p.score = finalscore(card_face_value_player);
+		ai.score = finalscore(card_face_value_ai);
+		compare(&p, &ai);
+	}
 
 	cout << "Score: Player: " << p.numOfWin << " " << "Bank: " << ai.numOfWin << endl;
 	cout << "Press 1 to play again" << endl;
 	cin >> repeat;
+	if (repeat == 1)
+	{
+		p.card1.randomCard();
+		p.card2.randomCard();
+		p.card3.resetCard();
+
+		ai.card1.randomCard();
+		ai.card2.randomCard();
+		ai.card3.resetCard();
+	}
 }while(repeat == 1);
+
 }

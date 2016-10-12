@@ -26,7 +26,7 @@ class Game
 	    std::istringstream(str) >> num;
 	    return num;
 	}
-
+	bool drawThird(int player, int ai);
 
 };
 

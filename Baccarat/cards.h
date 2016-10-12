@@ -13,7 +13,6 @@ class Card
 
 	void randomCard();
 	bool legalCard(std::string s);
-	bool drawThird(int player, int ai);
 	Card();
 	
 	std::string inttostr(int n)
@@ -24,6 +23,7 @@ class Card
 	    s = ss.str();
 	    return s;
 	}
+	void resetCard();
 };
 
 
