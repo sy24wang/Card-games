@@ -5,7 +5,6 @@ using namespace std;
 
 Player::Player()
 {
-	numOfWin = 0;
 	int score = 0;
 	card1.randomCard();
 	card2.randomCard();

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "game.h"
 
 using namespace std;
@@ -9,6 +10,9 @@ Game::Game()
 	cheat = true;
 	Player p;
 	Player ai;
+	default_money = 1000;
+	totalmoney = default_money;
+	bet = 0;
 }
 
 void Game::compare(struct Player *p, struct Player *ai)
@@ -20,12 +24,14 @@ void Game::compare(struct Player *p, struct Player *ai)
 	if (p->score > ai->score)
 	{
 		cout << "You win!" << endl;
-		p->numOfWin++;		
+		totalmoney += bet;
+		cout << "You have: $" << totalmoney << endl;
 	}
 	else if (p->score < ai->score)
 	{
 		cout << "The bank wins!" << endl;
-		ai->numOfWin++;
+		totalmoney -= bet;
+		cout << "You have: $" << totalmoney << endl;
 	}
 	else if (p->score == ai->score)
 	{
@@ -36,14 +42,6 @@ void Game::compare(struct Player *p, struct Player *ai)
 int Game::finalscore(int total)
 {
 	return total % 10;
-}
-
-//"J", "Q", "K" will fail, so it will return 0
-int Game::strtoint(std::string str)
-{
-	int num;
-	istringstream(str) >> num;
-	return num;
 }
 
 bool Game::drawThird(int player, int ai)
@@ -64,23 +62,77 @@ bool Game::legalCard(string s)
 			(s == "J") || (s == "Q") || (s == "K"));
 }
 
+void Game::writeMoney(int n)
+{
+	ofstream file;
+	file.open ("money.txt");
+	file << n;
+	file.close();
+}
+
+void Game::loadMoney()
+{
+	string money;
+	ifstream file("money.txt");
+	if (file.is_open())
+	{
+		getline(file, money);
+		int ret = strtoint(money);
+		file.close();
+		totalmoney = ret;
+		if (totalmoney <= 0)
+		{
+			cout << "Uh oh, looks like you've ran out of money from last time. We'll start you off with $1000" << endl;
+			totalmoney = default_money;
+		}
+	}
+	else
+	{
+		cout << "Looks like this is your first game. We'll start you off with $1000" << endl;
+		totalmoney = default_money;			//if it doesn't exist, we'll start off with $default_money
+	}
+}
+
+void Game::selectCheat(int cheatmode)
+{
+	if (cheatmode == 999)
+	{
+		cheat = true;
+	}
+	else 
+	{
+		cheat = false;
+	}	
+}
+
 void Game::startGame()
 {
+	loadMoney();
+	cout << "Your money is: " << totalmoney << endl;	
+
 	int repeat = 0;
 	int cheatmodeselection = 0;
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
 	cin >> cheatmodeselection;
 
-	if (cheatmodeselection == 999)
-	{
-		cheat = true;
-	}
-	else if (cheatmodeselection != 999)
-	{
-		cheat = false;
-	}
+	selectCheat(cheatmodeselection);
 
 do{
+	if (totalmoney <= 0)
+	{
+		cout << "Looks like you've ran out of money! We'll start you back at $1000" << endl;
+		totalmoney = default_money;
+	}
+
+	cout << "How much would you like to bet? You have:" << totalmoney << endl;
+	cin >> bet;
+
+	while ((bet <= 0) || (bet > totalmoney))
+	{
+		cout << "Nice try...enter your bet again:\n";
+		cin >> bet;
+	}
+
 	srand(time(NULL));
 	int card_face_value_player = 0;
 	int card_face_value_ai = 0;
@@ -163,7 +215,6 @@ do{
 		compare(&p, &ai);
 	}
 
-	cout << "Score: Player: " << p.numOfWin << " " << "Bank: " << ai.numOfWin << endl;
 	cout << "Press 1 to play again" << endl;
 	cin >> repeat;
 	if (repeat == 1)
@@ -179,4 +230,5 @@ do{
 	
 }while(repeat == 1);
 
+writeMoney(totalmoney);
 }

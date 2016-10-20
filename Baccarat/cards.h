@@ -5,21 +5,19 @@
 #include <cstdlib>
 #include <sstream>
 
+extern std::string inttostr(int n);
+
 class Card
 {
 	int score;
 	std::string value;
 
 public:
-	std::string inttostr(int n);
 	void randomCard();
 	void resetCard();
 	Card();
 
 friend class Game;
-friend class Player;
 };
-
-
 
 #endif
