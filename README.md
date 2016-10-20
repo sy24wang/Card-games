@@ -1,6 +1,8 @@
 # Card-games
 
-This is a collection of the card games that I've written
+This is a collection of the card games that I've written. To play on linux, run "g++ *.cc" within the respective folder
+
+The specification ("spec.txt") will guide you how to play
 
 Bacarrat:
 
