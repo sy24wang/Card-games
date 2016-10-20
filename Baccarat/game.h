@@ -24,7 +24,6 @@ public:
 	void loadMoney();
 	Game();
 	void startGame();
-
 };
 
 #endif

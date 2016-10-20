@@ -3,7 +3,6 @@
 #include <fstream>
 #include "game.h"
 
-
 using namespace std;
 
 Game::Game()
@@ -45,9 +44,6 @@ int Game::finalscore(int total)
 	return total % 10;
 }
 
-//"J", "Q", "K" will fail, so it will return 0
-
-
 bool Game::drawThird(int player, int ai)
 {
 	bool match_one = (ai <= 2);											//if bank is <= 2, then draw
@@ -65,7 +61,6 @@ bool Game::legalCard(string s)
 			(s == "6") || (s == "7") || (s == "8") || (s == "9") || (s == "10") || 
 			(s == "J") || (s == "Q") || (s == "K"));
 }
-
 
 void Game::writeMoney(int n)
 {
@@ -115,7 +110,6 @@ void Game::startGame()
 	loadMoney();
 	cout << "Your money is: " << totalmoney << endl;	
 
-
 	int repeat = 0;
 	int cheatmodeselection = 0;
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
@@ -138,7 +132,6 @@ do{
 		cout << "Nice try...enter your bet again:\n";
 		cin >> bet;
 	}
-
 
 	srand(time(NULL));
 	int card_face_value_player = 0;
@@ -221,6 +214,7 @@ do{
 		ai.score = finalscore(card_face_value_ai);
 		compare(&p, &ai);
 	}
+
 	cout << "Press 1 to play again" << endl;
 	cin >> repeat;
 	if (repeat == 1)
@@ -237,5 +231,4 @@ do{
 }while(repeat == 1);
 
 writeMoney(totalmoney);
-
 }

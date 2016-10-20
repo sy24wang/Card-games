@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include "game.h"
+
 using namespace std;
 
 void printrule()
@@ -14,6 +15,7 @@ void printrule()
 	cout << "\tThe winner is the one with score closest to 9\n\n";
 }
 
+//"J", "Q", "K" will fail, so it will return 0
 int strtoint(std::string str)
 {
 	int num;
