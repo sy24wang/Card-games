@@ -2,6 +2,7 @@
 #include <string>
 #include "game.h"
 
+
 using namespace std;
 
 Game::Game()
@@ -12,7 +13,7 @@ Game::Game()
 	money = 0;
 }
 
-void Game::setMoney(int n)
+void Game::updateMoney(int n)
 {
 	this->money = n;
 }
@@ -44,12 +45,7 @@ int Game::finalscore(int total)
 }
 
 //"J", "Q", "K" will fail, so it will return 0
-int Game::strtoint(std::string str)
-{
-	int num;
-	istringstream(str) >> num;
-	return num;
-}
+
 
 bool Game::drawThird(int player, int ai)
 {
@@ -71,11 +67,9 @@ bool Game::legalCard(string s)
 
 void Game::startGame()
 {
-	/*
-	cout << "Your money is: " << money << endl;
-	setMoney(9000);
+	
 	cout << "Your money is: " << money << endl;	
-*/
+
 
 	int repeat = 0;
 	int cheatmodeselection = 0;
