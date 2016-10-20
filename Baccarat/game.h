@@ -9,6 +9,7 @@ class Game
 	Player p;
 	Player ai;
 	bool cheat;
+	int money;
 
 public:
 	void compare(struct Player *p, struct Player *ai);
@@ -16,9 +17,10 @@ public:
 	int finalscore(int total);
 	bool drawThird(int player, int ai);
 	int strtoint(std::string str);
-
+	void setMoney(int n);
 	Game();
 	void startGame();
+
 };
 
 #endif

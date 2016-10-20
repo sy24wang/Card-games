@@ -9,8 +9,13 @@ Game::Game()
 	cheat = true;
 	Player p;
 	Player ai;
+	money = 0;
 }
 
+void Game::setMoney(int n)
+{
+	this->money = n;
+}
 void Game::compare(struct Player *p, struct Player *ai)
 {
 	cout << "---------------------------------------------------" << endl;
@@ -66,6 +71,12 @@ bool Game::legalCard(string s)
 
 void Game::startGame()
 {
+	/*
+	cout << "Your money is: " << money << endl;
+	setMoney(9000);
+	cout << "Your money is: " << money << endl;	
+*/
+
 	int repeat = 0;
 	int cheatmodeselection = 0;
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
