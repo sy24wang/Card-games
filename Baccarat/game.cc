@@ -130,7 +130,7 @@ do{
 		totalmoney = default_money;
 	}
 
-	cout << "How much would you like to bet?" << endl;
+	cout << "How much would you like to bet? You have:" << totalmoney << endl;
 	cin >> bet;
 
 	while ((bet <= 0) || (bet > totalmoney))

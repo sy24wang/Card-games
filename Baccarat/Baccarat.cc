@@ -21,6 +21,14 @@ int strtoint(std::string str)
 	return num;
 }
 
+string inttostr(int n)
+{
+    string s;
+    stringstream ss;
+    ss << n;
+	s = ss.str();
+	return s;
+}
 
 int main()
 {
