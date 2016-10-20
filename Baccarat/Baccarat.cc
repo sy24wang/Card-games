@@ -1,5 +1,4 @@
 #include <iostream>
-#include <fstream>
 #include <time.h>
 #include "game.h"
 using namespace std;
@@ -22,32 +21,6 @@ int strtoint(std::string str)
 	return num;
 }
 
-void writeMoney(int n)
-{
-	ofstream file;
-	file.open ("money.txt");
-	file << n;
-	file.close();
-}
-
-int loadMoney()
-{
-	string money;
-	ifstream file("money.txt");
-	if (file.is_open())
-	{
-		getline(file, money);
-		int ret = strtoint(money);
-		file.close();
-		return ret;
-	}
-		
-	else
-	{
-		cout << "ERROR: unable to open file";
-		return 0;
-	}
-}
 
 int main()
 {
@@ -62,11 +35,5 @@ int main()
 	{
 		printrule();
 	}
-
-	g.updateMoney(1000);
-	writeMoney(1000);
-	int moneyAvailable;
-	moneyAvailable = loadMoney();
-	cout << moneyAvailable << endl;
 	g.startGame();
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "game.h"
 
 
@@ -10,13 +11,10 @@ Game::Game()
 	cheat = true;
 	Player p;
 	Player ai;
-	money = 0;
+	totalmoney = 0;
+	bet = 0;
 }
 
-void Game::updateMoney(int n)
-{
-	this->money = n;
-}
 void Game::compare(struct Player *p, struct Player *ai)
 {
 	cout << "---------------------------------------------------" << endl;
@@ -27,11 +25,15 @@ void Game::compare(struct Player *p, struct Player *ai)
 	{
 		cout << "You win!" << endl;
 		p->numOfWin++;		
+		totalmoney += bet;
+		cout << "You have: $" << totalmoney << endl;
 	}
 	else if (p->score < ai->score)
 	{
 		cout << "The bank wins!" << endl;
 		ai->numOfWin++;
+		totalmoney -= bet;
+		cout << "You have: $" << totalmoney << endl;
 	}
 	else if (p->score == ai->score)
 	{
@@ -65,10 +67,38 @@ bool Game::legalCard(string s)
 			(s == "J") || (s == "Q") || (s == "K"));
 }
 
+
+void Game::writeMoney(int n)
+{
+	ofstream file;
+	file.open ("money.txt");
+	file << n;
+	file.close();
+}
+
+void Game::loadMoney()
+{
+	string money;
+	ifstream file("money.txt");
+	if (file.is_open())
+	{
+		getline(file, money);
+		int ret = strtoint(money);
+		file.close();
+		totalmoney = ret;
+	}
+		
+	else
+	{
+		cout << "Looks like this is your first game. We'll start you off with $1000" << endl;
+		totalmoney = 1000;			//if it doesn't exist, we'll start off with $1000
+	}
+}
+
 void Game::startGame()
 {
-	
-	cout << "Your money is: " << money << endl;	
+	loadMoney();
+	cout << "Your money is: " << totalmoney << endl;	
 
 
 	int repeat = 0;
@@ -86,6 +116,15 @@ void Game::startGame()
 	}
 
 do{
+	cout << "How much would you like to bet?" << endl;
+	cin >> bet;
+	while(bet > totalmoney)
+	{
+		cout << "Sorry, but you don't have that much, enter your bet again:" << endl;
+		cin >> bet;
+	}
+
+
 	srand(time(NULL));
 	int card_face_value_player = 0;
 	int card_face_value_ai = 0;
@@ -183,5 +222,7 @@ do{
 	}
 	
 }while(repeat == 1);
+
+writeMoney(totalmoney);
 
 }
