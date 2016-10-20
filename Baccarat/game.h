@@ -11,9 +11,11 @@ class Game
 	Player p;
 	Player ai;
 	bool cheat;
+	int default_money;
 	int totalmoney;
 	int bet;
 public:
+	void selectCheat(int cheatmode);
 	void compare(struct Player *p, struct Player *ai);
 	bool legalCard(std::string s);
 	int finalscore(int total);

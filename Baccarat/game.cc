@@ -11,7 +11,8 @@ Game::Game()
 	cheat = true;
 	Player p;
 	Player ai;
-	totalmoney = 0;
+	default_money = 1000;
+	totalmoney = default_money;
 	bet = 0;
 }
 
@@ -24,14 +25,12 @@ void Game::compare(struct Player *p, struct Player *ai)
 	if (p->score > ai->score)
 	{
 		cout << "You win!" << endl;
-		p->numOfWin++;		
 		totalmoney += bet;
 		cout << "You have: $" << totalmoney << endl;
 	}
 	else if (p->score < ai->score)
 	{
 		cout << "The bank wins!" << endl;
-		ai->numOfWin++;
 		totalmoney -= bet;
 		cout << "You have: $" << totalmoney << endl;
 	}
@@ -86,13 +85,29 @@ void Game::loadMoney()
 		int ret = strtoint(money);
 		file.close();
 		totalmoney = ret;
+		if (totalmoney <= 0)
+		{
+			cout << "Uh oh, looks like you've ran out of money from last time. We'll start you off with $1000" << endl;
+			totalmoney = default_money;
+		}
 	}
-		
 	else
 	{
 		cout << "Looks like this is your first game. We'll start you off with $1000" << endl;
-		totalmoney = 1000;			//if it doesn't exist, we'll start off with $1000
+		totalmoney = default_money;			//if it doesn't exist, we'll start off with $default_money
 	}
+}
+
+void Game::selectCheat(int cheatmode)
+{
+	if (cheatmode == 999)
+	{
+		cheat = true;
+	}
+	else 
+	{
+		cheat = false;
+	}	
 }
 
 void Game::startGame()
@@ -106,21 +121,21 @@ void Game::startGame()
 	cout << "Press 999 to enter cheat mode, 0 to enter regular mode" << endl;
 	cin >> cheatmodeselection;
 
-	if (cheatmodeselection == 999)
-	{
-		cheat = true;
-	}
-	else if (cheatmodeselection != 999)
-	{
-		cheat = false;
-	}
+	selectCheat(cheatmodeselection);
 
 do{
+	if (totalmoney <= 0)
+	{
+		cout << "Looks like you've ran out of money! We'll start you back at $1000" << endl;
+		totalmoney = default_money;
+	}
+
 	cout << "How much would you like to bet?" << endl;
 	cin >> bet;
-	while(bet > totalmoney)
+
+	while ((bet <= 0) || (bet > totalmoney))
 	{
-		cout << "Sorry, but you don't have that much, enter your bet again:" << endl;
+		cout << "Nice try...enter your bet again:\n";
 		cin >> bet;
 	}
 
@@ -206,8 +221,6 @@ do{
 		ai.score = finalscore(card_face_value_ai);
 		compare(&p, &ai);
 	}
-
-	cout << "Score: Player: " << p.numOfWin << " " << "Bank: " << ai.numOfWin << endl;
 	cout << "Press 1 to play again" << endl;
 	cin >> repeat;
 	if (repeat == 1)

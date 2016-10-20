@@ -5,7 +5,6 @@
 #include "cards.h"
 class Player
 {
-	int numOfWin;
 	int score;
 	Card card1;
 	Card card2;

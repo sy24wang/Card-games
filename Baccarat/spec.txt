@@ -23,13 +23,35 @@ Implementation: (from AI's standpoint)
 
 Technical spec:
 
+Overview:
 main (Baccarat.cc) calls Game. Game calls Player. Player calls Card
 
+=====================================================================================================================
+Game class:
+
+Note: the magic number "$1000" can be changed in the constructor, it's 'default_money'
+
+At the start of each game (one-time), Game::startGame() will look for a file called "money.txt"
+	-"money.txt" should include a single number, how much money the player have
+
+If it's the first game (i.e. "money.txt" doesn't exist yet), the player will start off with $1000.
+	-Game::loadMoney() will set 'totalMoney' to 1000, but will not create "money.txt". 'totalMoney' will be the value sent to Game::writeMoney after player quits, and Game::writeMoney will create the file "money.txt"  
+
+With the exception of a first game (Game::loadMoney() gives player $1000), 'totalMoney' is only manipulated by Game::compare(Player, Player);
+
+Players may bet money (<= to total amount in hand) before each game
+	Player win ->  	totalMoney += bet;
+	Player lose ->	totalMoney -= bet; 
+
+The bet should always be > 0 (i.e. 0 and negative numbers are not allowed)
+
+If player's available money went down to $0, we will re-start the game with $1000
+
+Immediately after the player quits the game, we will call Game::writeMoney(totalmoney) to update "money.txt". This is how we make the total $ persist across all games
+
+=====================================================================================================================
+Card class:
 Note: there are 2 fields in the Card class: 'value' and 'score'. 
 'value' is the card's face value stored in string (ex. "J", "10", "7", "K")
 'score' is the card's face value stored in int (ex. 0, 10, 2, 3, 7). We treat "J", "Q", "K" as 0 as per game rule
-
-
-TO DO: implement a save system (so that you can actually bet and win/lose money)
-
-
+=====================================================================================================================
