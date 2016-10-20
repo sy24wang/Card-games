@@ -18,7 +18,6 @@ public:
 	Card();
 
 friend class Game;
-friend class Player;
 };
 
 #endif
