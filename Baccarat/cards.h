@@ -5,8 +5,6 @@
 #include <cstdlib>
 #include <sstream>
 
-extern std::string inttostr(int n);
-
 class Card
 {
 	int score;

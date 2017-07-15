@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include "game.h"
-
+#include "common.h"
 using namespace std;
 
 Game::Game()
@@ -10,12 +10,11 @@ Game::Game()
 	cheat = true;
 	Player p;
 	Player ai;
-	default_money = 1000;
-	totalmoney = default_money;
+	totalmoney = DEFAULT_MONEY;
 	bet = 0;
 }
 
-void Game::compare(struct Player *p, struct Player *ai)
+void Game::compare(Player *p, Player *ai)
 {
 	cout << "---------------------------------------------------" << endl;
 	cout << "player score = " << p->card1.value << " + " << p->card2.value << " + " << p->card3.value << " = " << p->score << endl;
@@ -55,59 +54,15 @@ bool Game::drawThird(int player, int ai)
 	return (match_one || match_two || match_three || match_four || match_five);
 }
 
-bool Game::legalCard(string s)
-{
-	return ((s == "1") || (s == "2") || (s == "3") || (s == "4") || (s == "5") || 
-			(s == "6") || (s == "7") || (s == "8") || (s == "9") || (s == "10") || 
-			(s == "J") || (s == "Q") || (s == "K"));
-}
-
-void Game::writeMoney(int n)
-{
-	ofstream file;
-	file.open ("money.txt");
-	file << n;
-	file.close();
-}
-
-void Game::loadMoney()
-{
-	string money;
-	ifstream file("money.txt");
-	if (file.is_open())
-	{
-		getline(file, money);
-		int ret = strtoint(money);
-		file.close();
-		totalmoney = ret;
-		if (totalmoney <= 0)
-		{
-			cout << "Uh oh, looks like you've ran out of money from last time. We'll start you off with $1000" << endl;
-			totalmoney = default_money;
-		}
-	}
-	else
-	{
-		cout << "Looks like this is your first game. We'll start you off with $1000" << endl;
-		totalmoney = default_money;			//if it doesn't exist, we'll start off with $default_money
-	}
-}
-
 void Game::selectCheat(int cheatmode)
 {
-	if (cheatmode == 999)
-	{
-		cheat = true;
-	}
-	else 
-	{
-		cheat = false;
-	}	
+	if (cheatmode == 999)	cheat = true;
+	else cheat = false;	
 }
 
 void Game::startGame()
 {
-	loadMoney();
+	totalmoney = loadMoney();
 	cout << "Your money is: " << totalmoney << endl;	
 
 	int repeat = 0;
@@ -120,11 +75,11 @@ void Game::startGame()
 do{
 	if (totalmoney <= 0)
 	{
-		cout << "Looks like you've ran out of money! We'll start you back at $1000" << endl;
-		totalmoney = default_money;
+		cout << "Looks like you've ran out of money! We'll start you back at $" << DEFAULT_MONEY << endl;
+		totalmoney = DEFAULT_MONEY;
 	}
 
-	cout << "How much would you like to bet? You have:" << totalmoney << endl;
+	cout << "How much would you like to bet? You have $" << totalmoney << endl;
 	cin >> bet;
 
 	while ((bet <= 0) || (bet > totalmoney))
@@ -136,18 +91,13 @@ do{
 	srand(time(NULL));
 	int card_face_value_player = 0;
 	int card_face_value_ai = 0;
-	int final_player_score = 0;
-	int final_ai_score = 0;
 	
 	string thirdcardchoice = "";
 	string cheat_card_selection;
 	string cheat_card;
 	cout << "---------------------------------------------------" << endl;
 	cout << "You drew: " << p.card1.value << ", " << p.card2.value << endl;
-	if (cheat)
-	{
-		cout << "AI drew: " << ai.card1.value << ", " << ai.card2.value << endl;
-	}
+	if (cheat)	cout << "AI drew: " << ai.card1.value << ", " << ai.card2.value << endl;
 
 	card_face_value_player = p.card1.score + p.card2.score;
 	p.score = finalscore(card_face_value_player);
@@ -156,10 +106,7 @@ do{
 	ai.score = finalscore(card_face_value_ai);
 
 	//If either side's score is 8 or 9, that's the end of the game
-	if ((p.score == 8) || (p.score == 9) || (ai.score == 8) || (ai.score == 9))
-	{
-		compare(&p, &ai);
-	}
+	if ((p.score == 8) || (p.score == 9) || (ai.score == 8) || (ai.score == 9))	compare(&p, &ai);
 
 	//Otherwise, 3rd card may be drawn
 	else
@@ -171,7 +118,7 @@ do{
 		{
 			p.card3.randomCard();
 			cout << "You drew: " << p.card3.value << endl;
-			
+		
 			if (cheat)
 			{
 				cout << "psst...doesn't like it? Press 999 to select your 3rd card" << endl;
@@ -187,7 +134,7 @@ do{
 					}
 					p.card3.resetCard();
 					p.card3.value = cheat_card;
-					p.card3.score = strtoint(cheat_card);
+					p.card3.score = stoi(cheat_card);
 				}
 				else if (cheat_card_selection != "999")
 				{
@@ -204,10 +151,7 @@ do{
 		{
 			cout << "Computer has decided to draw the 3rd card!" << endl;
 			ai.card3.randomCard();
-			if (cheat)
-			{
-				cout << "Computer drew: " << ai.card3.value << endl;
-			}
+			if (cheat)	cout << "Computer drew: " << ai.card3.value << endl;
 			card_face_value_ai += ai.card3.score;
 		}
 		p.score = finalscore(card_face_value_player);
@@ -215,7 +159,7 @@ do{
 		compare(&p, &ai);
 	}
 
-	cout << "Press 1 to play again" << endl;
+	cout << "Press 1 to play again, press any other key to exit" << endl;
 	cin >> repeat;
 	if (repeat == 1)
 	{

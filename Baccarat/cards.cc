@@ -39,6 +39,6 @@ void Card::randomCard()
 	else
 	{
 		score = cardvalue;
-		value = inttostr(cardvalue);
+		value = to_string(cardvalue);
 	}
 }

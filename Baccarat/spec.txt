@@ -29,15 +29,15 @@ main (Baccarat.cc) calls Game. Game calls Player. Player calls Card
 =====================================================================================================================
 Game class:
 
-Note: the magic number "$1000" can be changed in the constructor, it's 'default_money'
+DEFAULT_MONEY is defined in common.h
 
 At the start of each game (one-time), Game::startGame() will look for a file called "money.txt"
 	-"money.txt" should include a single number, how much money the player have
 
-If it's the first game (i.e. "money.txt" doesn't exist yet), the player will start off with $1000.
-	-Game::loadMoney() will set 'totalMoney' to 1000, but will not create "money.txt". 'totalMoney' will be the value sent to Game::writeMoney after player quits, and Game::writeMoney will create the file "money.txt"  
+If it's the first game (i.e. "money.txt" doesn't exist yet), the player will start off with $DEFAULT_MONEY.
+	-Game::loadMoney() will set 'totalMoney' to DEFAULT_MONEY, but will not create "money.txt". 'totalMoney' will be the value sent to Game::writeMoney after player quits, and Game::writeMoney will create the file "money.txt"  
 
-With the exception of a first game (Game::loadMoney() gives player $1000), 'totalMoney' is only manipulated by Game::compare(Player, Player);
+With the exception of a first game (Game::loadMoney() gives player $DEFAULT_MONEY), 'totalMoney' is only manipulated by Game::compare(Player, Player);
 
 Players may bet money (<= to total amount in hand) before each game
 	Player win ->  	totalMoney += bet;
@@ -45,7 +45,7 @@ Players may bet money (<= to total amount in hand) before each game
 
 The bet should always be > 0 (i.e. 0 and negative numbers are not allowed)
 
-If player's available money went down to $0, we will re-start the game with $1000
+If player's available money went down to $0, we will re-start the game with $DEFAULT_MONEY
 
 Immediately after the player quits the game, we will call Game::writeMoney(totalmoney) to update "money.txt". This is how we make the total $ persist across all games
 
