@@ -1,19 +1,16 @@
 # Card-games
 
-This is a collection of the card games that I've written. To play on linux, run "g++ *.cc" within the respective folder
-
-The specification ("spec.txt") will guide you how to play
+This is a collection of the card games that I've written. To play on linux, run the command 'make' within the respective folder
 
 Bacarrat:
 
-Each player draws 2 cards and compare the highest last digit sum. For example, a 5 and a 7 is 2; 8 and 9 is 7.
-A 10 or a picture (J, Q, K) is 0
+Each player draws 2 cards and compare the highest last digit sum. For example, a 5 and a 7 is 12 = 2; 8 and 9 is 17 = 7. A 10 or a picture (J, Q, K) is 0
 
 After looking over the 2 cards, you may choose to draw a 3rd card
 
 The player with the number closest to 9 wins!
 
-Press 999 to enter cheat mode and see what's in your opponent's hand
+Press 999 to enter cheat mode
 
 =============================================================================================================
 Hanabi: (in progress)
