@@ -15,28 +15,9 @@ void printrule()
 	cout << "\tThe winner is the one with score closest to 9\n\n";
 }
 
-//"J", "Q", "K" will fail, so it will return 0
-int strtoint(std::string str)
-{
-	int num;
-	std::istringstream(str) >> num;
-	return num;
-}
-
-string inttostr(int n)
-{
-    string s;
-    stringstream ss;
-    ss << n;
-	s = ss.str();
-	return s;
-}
-
 int main()
 {
 	srand(time(NULL));
-	int menuselection;
-	int cheatmodeselection;
 	int rules;
 	Game g;
 	cout << "Welcome to Bacarrat! Press 1 for rules. Press anything else to start playing!" << endl;
